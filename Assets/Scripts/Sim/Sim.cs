@@ -107,9 +107,22 @@ public class CelluarMatrix {
     public bool set(int x, int y, Element element) {
         if (!isWithinBounds(x, y)) { return false; }
 
-        matrix[y][x].Delete();
+        Element newElement = element;
+        Element original = matrix[y][x];
 
-        matrix[y][x] = element;
+        if (element != Air.getInstance()) { // filled cell; check for fusion
+            Debug.Log("scanning for fusion...");
+            if (elementLibrary.IsFusionRegistered(original.elementType, element.elementType)) {
+                Debug.Log("BEEP BOOP! FUSSSSINGGGG!");
+                newElement = elementLibrary.NewFusionInstance(original.elementType, element.elementType, x, y, this);
+                element.Delete();
+            } else {
+                Debug.Log("no fusion detected.");
+            }
+        }
+
+        matrix[y][x].Delete();
+        matrix[y][x] = newElement;
         element.SetCoordinates(x, y);
 
         return true;

@@ -2470,9 +2470,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c49f509ad670fd48b87a825ecbc017d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: TomatoFarm
-  elementType: 13
-  sprite: {fileID: -50150406, guid: e0db3e5488b49414597d838f4f064992, type: 3}
+  name: PotatoFarm
+  elementType: 10
+  sprite: {fileID: -1087635211, guid: e0db3e5488b49414597d838f4f064992, type: 3}
   BaseRenderer: {fileID: 0}
   BaseCard: {fileID: 0}
   library: {fileID: 1620217214}
@@ -3706,6 +3706,9 @@ MonoBehaviour:
   - type: 3
     renderer: {fileID: 7831533875454280526, guid: 77143684d34571c41aa05de87bbf4cd9, type: 3}
     card: {fileID: 5591954209532133821, guid: 902d3ac130e52a043a481b39225ae46e, type: 3}
+  - type: 10
+    renderer: {fileID: 1663255653697086459, guid: 993888702aa1d7e45bc87a708848ff88, type: 3}
+    card: {fileID: 4197126703850068975, guid: d6cb743ef36abe4488736d272376b603, type: 3}
   - type: 8
     renderer: {fileID: 236817296767206093, guid: f56129a816ee37d4dad370ba75dcaaca, type: 3}
     card: {fileID: 4450335195392115864, guid: 9f3e3b1d23dfb874d87decf2eb356a88, type: 3}
@@ -3739,7 +3742,10 @@ MonoBehaviour:
   - type: 13
     renderer: {fileID: 980438474140140844, guid: 7342ac17464513c41a7577774c5d8179, type: 3}
     card: {fileID: 821087445432652379, guid: bea5cdebe332a0f4c8eda1d3565d7e38, type: 3}
-  FusionBook: []
+  FusionBook:
+  - a: 1
+    b: 8
+    result: 10
 --- !u!4 &1620217215
 Transform:
   m_ObjectHideFlags: 0

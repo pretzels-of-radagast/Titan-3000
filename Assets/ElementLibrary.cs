@@ -34,25 +34,28 @@ public class ElementLibrary : Singleton<ElementLibrary> {
         if (elementType == ElementType.Air) {
             element =  Air.getInstance();
         } else if (elementType == ElementType.Human) {
-            Debug.Log("creating human");
             element = new Human(matrixX, matrixY, matrix);
         } else if (elementType == ElementType.AlgaeFarm) {
-            element = new Human(matrixX, matrixY, matrix);
+            element = new AlgaeFarm(matrixX, matrixY, matrix);
         } else if (elementType == ElementType.Algae) {
-            element = new Human(matrixX, matrixY, matrix);
+            element = new Algae(matrixX, matrixY, matrix);
         } else if (elementType == ElementType.Cabbage) {
-            element = new Human(matrixX, matrixY, matrix);
+            element = new Cabbage(matrixX, matrixY, matrix);
         } else if (elementType == ElementType.CabbageFarm) {
-            element = new Human(matrixX, matrixY, matrix);
+            element = new CabbageFarm(matrixX, matrixY, matrix);
         } else if (elementType == ElementType.Village) {
-            element = new Human(matrixX, matrixY, matrix);
+            element = new Village(matrixX, matrixY, matrix);
         } else if (elementType == ElementType.City) {
-            element = new Human(matrixX, matrixY, matrix);
-        }  else if (elementType == ElementType.Potato) {
+            element = new City(matrixX, matrixY, matrix);
+        } else if (elementType == ElementType.Potato) {
             element = new Potato(matrixX, matrixY, matrix);
-        }  else if (elementType == ElementType.Sandwich) {
+        } else if (elementType == ElementType.PotatoFarm) {
+            Debug.Log("making a potato farm");
+            element = new PotatoFarm(matrixX, matrixY, matrix);
+        } else if (elementType == ElementType.Sandwich) {
             element = new Sandwich(matrixX, matrixY, matrix);
         }
+        element.elementType = elementType;
 
         if (rendererFlag) {
             NewRendererInstance(elementType, element);
@@ -94,8 +97,27 @@ public class ElementLibrary : Singleton<ElementLibrary> {
     public bool IsElementRegistered(ElementType elementType) { return ElementDictionary.ContainsKey(elementType); }
 
 
-    public bool IsFusionRegistered(Element a, Element b) { return true; }
-    public Element GetFusionType(Element a, Element b) { return NewElementInstance(0, 0, ElementType.Air, null); }
+    public bool IsFusionRegistered(ElementType a, ElementType b) {
+        foreach (FusionRegistry fusionRegistry in FusionBook) {
+            bool isMatch = (fusionRegistry.a == a && fusionRegistry.b == b) || (fusionRegistry.a == b && fusionRegistry.b == a);
+            if (isMatch) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public Element NewFusionInstance(ElementType a, ElementType b, int matrixX, int matrixY, CelluarMatrix matrix, bool rendererFlag=true) {
+        foreach (FusionRegistry fusionRegistry in FusionBook) {
+            bool isMatch = (fusionRegistry.a == a && fusionRegistry.b == b) || (fusionRegistry.a == b && fusionRegistry.b == a);
+            if (isMatch) {
+                return NewElementInstance(matrixX, matrixY, fusionRegistry.result, matrix, rendererFlag);
+            }
+        }
+
+        return null;
+    }
 
 }
 
@@ -109,8 +131,8 @@ public struct ElementRegistry {
 
 [System.Serializable]
 public struct FusionRegistry {
-    public Element a;
-    public Element b;
+    public ElementType a;
+    public ElementType b;
 
-    public Element result;
+    public ElementType result;
 }

@@ -8,6 +8,7 @@ public abstract class Element {
     public int matrixX { get; private set; }
     public int matrixY { get; private set; }
     public CelluarMatrix matrix;
+    public ElementType elementType;
 
     /* VALUES */
     public Resources Cost;
@@ -38,6 +39,11 @@ public abstract class Element {
         DailyCreatedElementCards = new List<ElementType>();
         DestructionCost = new Resources(0, 0, 0);
         DieNextTurn = false;
+    }
+
+    public void Start() {
+        Deduct(Cost);
+        Add(Gain);
     }
 
     public virtual void Step(CelluarMatrix celluarMatrix) {

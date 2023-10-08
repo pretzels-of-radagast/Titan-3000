@@ -44,7 +44,7 @@ public class CelluarMatrix {
         for (int y = 0; y < matrixHeight; y++) {
             Element[] row = new Element[matrixWidth];
             for (int x = 0; x < matrixWidth; x++) {
-                row[x] = elementLibrary.NewElementInstance(x, y, ElementType.Air, this);
+                row[x] = elementLibrary.NewElementInstance(x, y, ElementType.Air, this, false);
             }
             newMatrix[y] = row;
         }

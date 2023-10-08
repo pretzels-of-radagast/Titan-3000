@@ -32,12 +32,14 @@ public class HandHolder : Singleton<HandHolder> {
         ResetCardPositions();
     }
 
-    public bool RemoveCard(Card card) {
+    public bool RemoveCard(Card card, bool destroyFlag=true) {
         if (! Hand.Contains(card)) { return false; }
         Hand.Remove(card);
         CalculateCardPositons();
         ResetCardPositions();
-        Destroy(card.gameObject);
+        if (destroyFlag) {
+            Destroy(card.gameObject);
+        }
         return true;
     }
 

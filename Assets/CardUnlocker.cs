@@ -17,6 +17,9 @@ public class CardUnlocker : MonoBehaviour
     public AnimationCurve MoveCurve;
 
     public Vector3 CardPosition;
+
+    [Header("SFX")]
+    public AudioClip ResearchSFX;
     
     // cache
     private int unlockIndex;
@@ -34,7 +37,6 @@ public class CardUnlocker : MonoBehaviour
             Sim.instance.celluarMatrix.AddCard(currentUnlock.elementType);
             unlockIndex += 1;
         }
-
     }
 
     private void AddPosterCard(ElementType elementType) {
@@ -42,16 +44,14 @@ public class CardUnlocker : MonoBehaviour
         if (PosterCard != null) { Destroy(PosterCard); }
 
         // create the card
-        Card card = ElementLibrary.instance.NewCardInstance(elementType);
-        PosterCard = ElementLibrary.instance.NewCardInstance(elementType).gameObject;
+        Card card = ElementLibrary.instance.NewCardInstance(elementType, false);
+        PosterCard = card.gameObject;
 
         // parent it to this transform
-        HandHolder.instance.RemoveCard(card);
         PosterCard.transform.SetParent(transform);
 
         // disable the card script
         PosterCard.GetComponent<Card>().enabled = false;
-        Destroy(PosterCard.GetComponent<Card>());
 
         // set it's appropriate location relative to this transform
         PosterCard.transform.localPosition = CardPosition;

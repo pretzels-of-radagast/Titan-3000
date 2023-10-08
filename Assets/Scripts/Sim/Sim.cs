@@ -207,7 +207,9 @@ public class Sim : Singleton<Sim> {
 
     private void Awake() {
         base.Awake();
+    }
 
+    private void Start() {
         celluarMatrix = new CelluarMatrix((int) Size.x, (int) Size.y, this, startingResources, elementLibrary);
     }
 

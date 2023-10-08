@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class MousePointer : Singleton<MousePointer>
 {
+
     public Canvas parentCanvas;
 
     public SelectableItem SelectedItem;
@@ -13,6 +14,11 @@ public class MousePointer : Singleton<MousePointer>
 
     public RectTransform cardHolder;
     public RectTransform rendererHolder;
+
+
+    [Header("Audioclips")]
+    public AudioClip PopInAudioClip;
+    public AudioClip PopOutAudioClip;
     
     // private bool PreviouslyOnCancelRegion;
     // public RectTransform CancelRegion;

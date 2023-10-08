@@ -30,7 +30,9 @@ public class ElementLibrary : Singleton<ElementLibrary> {
 
     private Dictionary<ElementType, ElementRegistry> ElementDictionary;
 
-    public Element NewElementInstance(int matrixX, int matrixY, ElementType elementType, CelluarMatrix matrix, bool rendererFlag=true) {
+    public bool[] DiscoveredElements;
+
+    public Element NewElementInstance(int matrixX, int matrixY, ElementType elementType, CelluarMatrix matrix, bool rendererFlag=true, bool discoverFlag=true) {
         Element element = Air.getInstance();
 
         Debug.Log("making an element");
@@ -68,6 +70,10 @@ public class ElementLibrary : Singleton<ElementLibrary> {
             element = new Sandwich(matrixX, matrixY, matrix);
         }
         element.elementType = elementType;
+        
+        if (discoverFlag) {
+            Discover(elementType);
+        }
 
         if (rendererFlag) {
             NewRendererInstance(elementType, element);
@@ -77,7 +83,7 @@ public class ElementLibrary : Singleton<ElementLibrary> {
         return element;
     }
 
-    private void Awake() { base.Awake(); CreateElementDictionary(); }
+    private void Awake() { base.Awake(); CreateElementDictionary(); CreateDiscoveredElementsArray(); }
 
     private void CreateElementDictionary() {
         ElementDictionary = new Dictionary<ElementType, ElementRegistry>();
@@ -86,12 +92,38 @@ public class ElementLibrary : Singleton<ElementLibrary> {
         }
     }
 
-    public Card NewCardInstance(ElementType elementType) {
+    private void CreateDiscoveredElementsArray() {
+        DiscoveredElements = new bool[ElementBook.Count];
+    }
+
+    private bool Discover(ElementType elementType) {
+        int index = 0;
+        foreach (ElementRegistry registry in ElementBook) {
+            if (registry.type == elementType) {
+                DiscoveredElements[index] = true;
+            }
+            index += 1;
+        }
+        return false;
+    }
+
+    public int NumberDiscovered() {
+        int count = 0;
+        foreach (bool discovered in DiscoveredElements) {
+            if (discovered) count += 1;
+        }
+        return count;
+    }
+
+    public Card NewCardInstance(ElementType elementType, bool addFlag=true) {
         if (!IsElementRegistered(elementType)) { return null; }
 
         GameObject baseObject = ElementDictionary[elementType].card.gameObject;
         Card card = Instantiate(baseObject, HandHolder.instance.transform).GetComponent<Card>();
-        HandHolder.instance.AddCard(card);
+        if (addFlag ) {
+            HandHolder.instance.AddCard(card);
+        }
+        
 
         return card;
     }

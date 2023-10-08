@@ -10,7 +10,8 @@ public class ResourceDisplay : MonoBehaviour
         Oxygen,
         Food,
         Human,
-        Cycle
+        Cycle,
+        Research
     }
 
     public Resource resource;
@@ -25,6 +26,8 @@ public class ResourceDisplay : MonoBehaviour
             textMesh.text = $"{Sim.instance.Resources.Human}";
         } else if (resource == Resource.Cycle) {
             textMesh.text = $"CYCLE {Sim.instance.Cycle}";
+        } else if (resource == Resource.Research) {
+            textMesh.text = $"{ElementLibrary.instance.NumberDiscovered()} / {ElementLibrary.instance.DiscoveredElements.Length}";
         }
     }
 

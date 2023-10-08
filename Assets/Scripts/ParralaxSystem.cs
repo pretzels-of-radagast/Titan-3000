@@ -1,16 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
-public class ParralaxSystem : MonoBehaviour
-{
+public class ParralaxSystem : MonoBehaviour {
     public float ParralaxSpeed;
-    [HideInInspector] public Vector3 TotalDistance;
+    public Vector3 TotalDistance;
+
+    public GameObject subject;
 
     private void Update() {
-        TotalDistance = new Vector3(
-            TotalDistance.x + ParralaxSpeed * Time.deltaTime,
-            TotalDistance.y
-        );
+        if (subject == null) {
+            TotalDistance = new Vector3(
+                TotalDistance.x + ParralaxSpeed * Time.deltaTime,
+                TotalDistance.y
+            );
+        } else {
+            TotalDistance = (subject.transform.position) * ParralaxSpeed;
+        }
+        
     }
 }

@@ -8,6 +8,7 @@ public class Parralax : MonoBehaviour {
     public Transform subject;
     public bool ScrollX;
     public bool ScrollY;
+    public bool TileYOverride = false;
     public bool staticScroll;
 
     public ParralaxSystem parralaxSystem;
@@ -26,7 +27,7 @@ public class Parralax : MonoBehaviour {
         _imageDimensions = spriteRenderer.size;
 
         spriteRenderer.drawMode = SpriteDrawMode.Tiled;
-        spriteRenderer.size = new Vector2(_imageDimensions.x * (ScrollX ? 2 : 1), spriteRenderer.size.y * (ScrollY ? 2 : 1));
+        spriteRenderer.size = new Vector2(_imageDimensions.x * (ScrollX ? 2 : 1), spriteRenderer.size.y * ((ScrollY && !TileYOverride) ? 2 : 1));
 
         _startPosition = new Vector3(
             transform.position.x, //  + spriteRenderer.size.x/2
@@ -59,7 +60,10 @@ public class Parralax : MonoBehaviour {
     }
 
     private Vector3 sscamDisp => parralaxSystem.TotalDistance - _startPosition; // the displacement of the camera // cam.transform.position
-    private Vector3 ssparralaxDisp => sscamDisp * _parallaxFactor - parralaxSystem.TotalDistance; // the total displacement of the parralax.
+    private Vector3 ssparralaxDisp => sscamDisp * _parallaxFactor - sscamDisp + 
+        (ScrollX ? Vector3.right * _imageDimensions.x / 2 : Vector3.zero) + 
+        ((ScrollY && !TileYOverride) ? Vector3.up * _imageDimensions.y / 2 : Vector3.zero); // the total displacement of the parralax.
+        
     private Vector3 ssparralaxTravel => _startPosition + ssparralaxDisp; // the position of the parralax. all that's needed to parralax.
 
 }

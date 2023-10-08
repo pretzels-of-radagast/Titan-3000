@@ -7,9 +7,12 @@ using UnityEngine.InputSystem;
 public class MousePointer : Singleton<MousePointer>
 {
     public Canvas parentCanvas;
-    public Card SelectedCard;
 
-    public bool IsLegiblePlacement;
+    public SelectableItem SelectedItem;
+    private bool IsLegiblePlacement;
+
+    public RectTransform cardHolder;
+    public RectTransform rendererHolder;
     
     // private bool PreviouslyOnCancelRegion;
     // public RectTransform CancelRegion;
@@ -17,7 +20,7 @@ public class MousePointer : Singleton<MousePointer>
     public void Update() {
         MoveToMousePoint();
         UpdateLegibility();
-        UpdateDeselect();
+        UpdateUse();
     }
 
     public void MoveToMousePoint() {
@@ -27,47 +30,51 @@ public class MousePointer : Singleton<MousePointer>
     }
 
     public void UpdateLegibility() {
-        if (SelectedCard == null) return;
+        if (SelectedItem == null) return;
         
-        IsLegiblePlacement = SelectedCard.IsValidSpawnLocation(Input.mousePosition);
+        IsLegiblePlacement = SelectedItem.IsValidSetLocation(Input.mousePosition);
         if (IsLegiblePlacement) {
-            SelectedCard.UnTint();
+            SelectedItem.UnTint();
         } else {
-            SelectedCard.Tint();
+            SelectedItem.Tint();
         }
     }
 
-    public void UpdateDeselect() {
-        bool isMouseUp = !Mouse.current.leftButton.isPressed;
-        if (isMouseUp) {
-            if (SelectedCard != null && SelectedCard.IsLegible && IsLegiblePlacement) {
-                SelectedCard.Spawn(Input.mousePosition);
+    public void UpdateUse() {
+        bool use = !Mouse.current.leftButton.isPressed;
+        if (SelectedItem != null && use) {
+            if (SelectedItem.IsLegibleCost() && IsLegiblePlacement) {
+                SelectedItem.Spawn(Input.mousePosition);
             }
             DeSelectCard();
         }
-        
-        /*
-        bool MouseOnCancelRegion = RectTransformUtility.RectangleContainsScreenPoint(CancelRegion, Input.mousePosition, Camera.main);
-        bool EnteredCancelRegion = !PreviouslyOnCancelRegion && MouseOnCancelRegion;
-        if (EnteredCancelRegion) { DeSelectCard(); }
-        PreviouslyOnCancelRegion = MouseOnCancelRegion;
-        */
     }
 
-    public void SelectItem(Card card) {
-        if (card == SelectedCard) { return; }
-        if (SelectedCard != null) { DeSelectCard(); }
+    public void SelectItem(SelectableItem item) {
+        if (item == SelectedItem) { return; }
+        if (SelectedItem != null) { DeSelectCard(); }
 
-        card.transform.SetParent(transform);
-        card.StopMovement();
-        SelectedCard = card;
+        item.transform.SetParent(transform);
+        item.StopMovement();
+        SelectedItem = item;
     }
 
     public void DeSelectCard() {
-        if (SelectedCard == null) { return; }
+        if (SelectedItem == null) { return; }
+        
+        SelectedItem.UnTint();
+        if (SelectedItem.GetType() == typeof(Card)) {
+            SelectedItem.transform.SetParent(cardHolder, true);
+            SelectedItem.LerpDefault(0.1f);
+            SelectedItem = null;
+        } else if (SelectedItem.GetType() == typeof(ElementRenderer)) {
+            SelectedItem.transform.SetParent(rendererHolder, true);
+            (SelectedItem as ElementRenderer).UpdatePosition();
+            SelectedItem = null;
+        }
+    }
 
-        SelectedCard.transform.SetParent(HandHolder.instance.transform, true);
-        SelectedCard.LerpDefault(0.1f);
-        SelectedCard = null;
+    public bool IsSelected(SelectableItem item) {
+        return SelectedItem == item;
     }
 }

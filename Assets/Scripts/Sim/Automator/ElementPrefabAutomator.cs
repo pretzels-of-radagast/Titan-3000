@@ -47,7 +47,7 @@ public class ElementPrefabAutomator : MonoBehaviour
             PrefabUtility.UnpackPrefabInstance(BaseRenderer.gameObject, PrefabUnpackMode.Completely, InteractionMode.UserAction);
         } catch {}
         
-        SpriteRenderer icon = BaseRenderer.transform.Find("icon").GetComponent<SpriteRenderer>();
+        Image icon = BaseRenderer.transform.Find("icon").GetComponent<Image>();
         icon.sprite = sprite;
         GameObject go = BaseRenderer.gameObject;
 

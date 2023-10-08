@@ -23,8 +23,6 @@ public class Air : Element {
 
     public override void SetCoordinates(int x, int y) { }
 
-    public override bool Swap(CelluarMatrix celluarMatrix, Element other) { return false; }
-
-    public override bool Swap(CelluarMatrix celluarMatrix, Element other, int otherX, int otherY) { return false; }
+    public override bool Move(CelluarMatrix celluarMatrix, Element other, int otherX, int otherY) { return false; }
 
 }

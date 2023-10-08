@@ -26,13 +26,17 @@ public class ElementLibrary : Singleton<ElementLibrary> {
     [SerializeField] public List<ElementRegistry> ElementBook;
     [SerializeField] public List<FusionRegistry> FusionBook;
 
+    public Transform RendererHolder;
+
     private Dictionary<ElementType, ElementRegistry> ElementDictionary;
 
     public Element NewElementInstance(int matrixX, int matrixY, ElementType elementType, CelluarMatrix matrix, bool rendererFlag=true) {
         Element element = Air.getInstance();
 
+        Debug.Log("making an element");
+
         if (elementType == ElementType.Air) {
-            element =  Air.getInstance();
+            element = Air.getInstance();
         } else if (elementType == ElementType.Human) {
             element = new Human(matrixX, matrixY, matrix);
         } else if (elementType == ElementType.AlgaeFarm) {
@@ -96,8 +100,9 @@ public class ElementLibrary : Singleton<ElementLibrary> {
         if (!IsElementRegistered(elementType)) { return null; }
 
         GameObject baseObject = ElementDictionary[elementType].renderer.gameObject;
-        ElementRenderer elementRenderer = Instantiate(baseObject).GetComponent<ElementRenderer>();
+        ElementRenderer elementRenderer = Instantiate(baseObject, RendererHolder).GetComponent<ElementRenderer>();
         elementRenderer.AssignElement(assignee);
+        elementRenderer.ElementType = elementType;
 
         return elementRenderer;
     }

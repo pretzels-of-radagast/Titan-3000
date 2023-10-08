@@ -9,7 +9,7 @@ public enum CardBehaviour {
 }
 
 public abstract class Element {
-
+    
     /* MATRIX */
     public int matrixX { get; private set; }
     public int matrixY { get; private set; }
@@ -17,6 +17,9 @@ public abstract class Element {
     public ElementType elementType;
 
     /* VALUES */
+    public string Name;
+    public string Description;
+
     public Resources Cost;
     public Resources Gain;
     public Resources DailyGain;
@@ -40,6 +43,9 @@ public abstract class Element {
         matrix = celluarMatrix;
         
         // set default values
+        Name = "default_name";
+        Description = "default_description";
+
         Cost = new Resources(0, 0, 0);
         Gain = new Resources(0, 0, 0);
         DailyGain = new Resources(0, 0, 0);
@@ -106,6 +112,8 @@ public abstract class Element {
     */
 
     public virtual void SetCoordinates(int x, int y) {
+        Debug.Log($"{x}, {y}");
+
         this.matrixX = x;
         this.matrixY = y;
         OnPositionChanged();
@@ -116,15 +124,21 @@ public abstract class Element {
         OnDelete();
     }
 
-    public virtual bool Swap(CelluarMatrix celluarMatrix, Element other) {
-        return Swap(celluarMatrix, other, other.matrixX, other.matrixY);
+    public virtual bool Move(CelluarMatrix celluarMatrix, Vector3 screenSpacePoint) {
+        Vector2 otherPos = Sim.instance.GetMatrixCoordinates(screenSpacePoint);
+        Element other = celluarMatrix.get((int) otherPos.x, (int) otherPos.y);
+
+        Debug.Log($"{(int) otherPos.x}, {(int) otherPos.y}");
+
+        return Move(celluarMatrix, other, (int) otherPos.x, (int) otherPos.y);
     }
 
-    public virtual bool Swap(CelluarMatrix celluarMatrix, Element other, int otherX, int otherY) { // neat, readable, way to store otherX, otherY vals
+    public virtual bool Move(CelluarMatrix celluarMatrix, Element other, int otherX, int otherY) { // neat, readable, way to store otherX, otherY vals
         if (this == other) { return false; }
-
-        celluarMatrix.set(matrixX, matrixY, other);
+    
+        celluarMatrix.set(matrixX, matrixY, Air.getInstance(), false);
         celluarMatrix.set(otherX, otherY, this);
+
         return true;
     }
 

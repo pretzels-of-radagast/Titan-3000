@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ElementRenderer : MonoBehaviour
+public class ElementRenderer : SelectableItem
 {
     public static Vector2 MatrixOffset = new Vector2(0.625f, 0.625f);
-
-    public Element element;
     public Sim simulation;
 
     public int matrixX;
     public int matrixY;
+
+    public override void Spawn(Vector3 screenSpacePoint) {
+        Debug.Log("move");
+        element.Move(simulation.celluarMatrix, screenSpacePoint);
+        UpdatePosition();
+    }
+    public override bool IsLegibleCost() { return true; }
+    public override bool IsLegiblePlacement(Vector3 screenPoint) { return IsValidSetLocation(screenPoint); }
 
     public void AssignElement(Element element) {
         this.element = element;
@@ -26,7 +32,7 @@ public class ElementRenderer : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    private void UpdatePosition() {
+    public void UpdatePosition() {
         matrixX = element.matrixX;
         matrixY = element.matrixY;
 

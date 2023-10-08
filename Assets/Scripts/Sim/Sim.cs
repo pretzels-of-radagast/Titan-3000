@@ -105,26 +105,23 @@ public class CelluarMatrix {
     public Element get(int x, int y) { return !isWithinBounds(x, y) ? null : matrix[y][x]; }
     public Element[] getRow(int y) { return !isWithinBounds(0, y) ? null : matrix[y]; }
 
-    public bool set(int x, int y, Element element) {
+    public bool set(int x, int y, Element element, bool deleteFlag=true) {
         if (!isWithinBounds(x, y)) { return false; }
 
         Element newElement = element;
         Element original = matrix[y][x];
-
-        if (element != Air.getInstance()) { // filled cell; check for fusion
-            Debug.Log("scanning for fusion...");
-            if (elementLibrary.IsFusionRegistered(original.elementType, element.elementType)) {
-                Debug.Log("BEEP BOOP! FUSSSSINGGGG!");
-                newElement = elementLibrary.NewFusionInstance(original.elementType, element.elementType, x, y, this);
+        
+        if (original != Air.getInstance()) { // filled cell; check for fusion
+            if (elementLibrary.IsFusionRegistered(original.elementType, newElement.elementType)) {
+                newElement = elementLibrary.NewFusionInstance(original.elementType, newElement.elementType, x, y, this);
                 element.Delete();
-            } else {
-                Debug.Log("no fusion detected.");
             }
         }
 
-        matrix[y][x].Delete();
+        if (deleteFlag) { matrix[y][x].Delete(); } 
         matrix[y][x] = newElement;
-        element.SetCoordinates(x, y);
+
+        newElement.SetCoordinates(x, y);
 
         return true;
     }
@@ -138,75 +135,25 @@ public class CelluarMatrix {
     public int BoundX(int x) { return Mathf.Clamp(x, 0, matrixWidth - 1); }
     public int BoundY(int y) { return Mathf.Clamp(y, 0, matrixHeight - 1); }
 
-    /*
-
-    Given a the starting and ending points of a line, return a list of the points in between.
-
-    */
-    public Vector2[] GetInterpolatedPoints(int prevx, int prevy, int currx, int curry) {
-        
-        // return the only point if there is no change
-        if (prevx == currx && prevy == curry) { return new Vector2[]{ new Vector2(currx, curry) }; }
-
-        int diffx = currx - prevx;
-        int diffy = curry - prevy;
-
-        // the number of points is whichever axis has more difference
-        Vector2[] points;
-
-        if (Mathf.Abs(diffx) >= Mathf.Abs(diffy)) { // going along the x-axis
-            // points are added starting from the previous to the current point
-            points = new Vector2[Mathf.Abs(diffx) + 1];
-
-            int minX = Mathf.Min(prevx, currx);
-            int maxX = Mathf.Max(prevx, currx);
-            for (int x=minX; x<=maxX; x+=1) {
-                int y = Mathf.RoundToInt(((diffx == 0) ? 0 : (float)diffy / diffx) * (x - prevx) + prevy); // y value = mx + b
-                points[Mathf.Abs(x - prevx)] = new Vector2(x, y);
-            }
-
-        } else { // going along the y-axis
-            points = new Vector2[Mathf.Abs(diffy) + 1];
-
-            int minY = Mathf.Min(prevy, curry);
-            int maxY = Mathf.Max(prevy, curry);
-            for (int y=minY; y<=maxY; y+=1) {
-                int x = Mathf.RoundToInt(((diffx == 0) ? 0 : (float)diffx / diffy) * (y - prevy) + prevx); // y value = mx + b
-                points[Mathf.Abs(y - prevy)] = new Vector2(x, y);
-            }
-        }
-
-
-        return points;
-
-    }
-
     /* 
 
     GAMEPLAY TOOLS
 
     */
 
-    public bool SpawnRandom(Element elementType) {
-        Vector2 matrixCoordinates = new Vector2(Random.Range(0, matrixWidth), Random.Range(0, matrixHeight));
-
-        set((int) matrixCoordinates.x, (int) matrixCoordinates.y, elementType);
-        return true;
-    }
-
-    public bool IsValidSpawnLocation(Vector2 screenSpacePoint, RectTransform spriteRect, Camera camera, ElementType elementType) {
+    public bool IsValidSetLocation(Vector2 screenSpacePoint, RectTransform spriteRect, Camera camera, ElementType elementType) {
         Vector2 matrixCoordinates = GetMatrixCoordinates(screenSpacePoint, spriteRect, camera);
         if (!isWithinBounds((int) matrixCoordinates.x, (int) matrixCoordinates.y)) { return false; }
+
         Element original = get((int) matrixCoordinates.x, (int) matrixCoordinates.y);
         if (original == Air.getInstance()) { return true; }
-        if (!elementLibrary.IsFusionRegistered(elementType, original.elementType)) { return false; }
+        else if (!elementLibrary.IsFusionRegistered(elementType, original.elementType)) { return false; }
 
         return true;
     }
 
     public bool SpawnElement(Vector2 screenSpacePoint, RectTransform spriteRect, Camera camera, ElementType elementType) {
         Vector2 matrixCoordinates = GetMatrixCoordinates(screenSpacePoint, spriteRect, camera);
-        Debug.Log($"{(int) matrixCoordinates.x} {(int) matrixCoordinates.y}");
         if (!isWithinBounds((int) matrixCoordinates.x, (int) matrixCoordinates.y)) { return false; }
 
         set((int) matrixCoordinates.x, (int) matrixCoordinates.y, elementLibrary.NewElementInstance(0, 0, elementType, this));
@@ -261,6 +208,10 @@ public class Sim : Singleton<Sim> {
     HELPER FUNCTIONS
     */
 
+    public Vector2 GetMatrixCoordinates(Vector2 screenPoint) {
+        return celluarMatrix.GetMatrixCoordinates(screenPoint, simBounds, ViewCamera);
+    }
+
     public Vector2 MatrixToWorldCoordinates(int matrixX, int matrixY) {
         return celluarMatrix.MatrixToWorldCoordinates(simBounds, matrixX, matrixY);
     }
@@ -269,8 +220,8 @@ public class Sim : Singleton<Sim> {
         return celluarMatrix.SpawnElement(screenSpacePoint, simBounds, ViewCamera, elementType);
     }
 
-    public bool IsValidSpawnLocation(ElementType elementType, Vector2 screenSpacePoint) {
-        return celluarMatrix.IsValidSpawnLocation(screenSpacePoint, simBounds, ViewCamera, elementType);
+    public bool IsValidSetLocation(ElementType elementType, Vector2 screenSpacePoint) {
+        return celluarMatrix.IsValidSetLocation(screenSpacePoint, simBounds, ViewCamera, elementType);
     }
 
     /*

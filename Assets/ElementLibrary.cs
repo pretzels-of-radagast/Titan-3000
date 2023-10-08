@@ -12,13 +12,14 @@ public enum ElementType {
     CabbageFarm,
     Village,
     City,
-    Potato
+    Potato,
+    Sandwich
 }
 
 public class ElementLibrary : Singleton<ElementLibrary> {
 
-    [SerializeField] private ElementRegistry[] ElementBook;
-    [SerializeField] private FusionRegistry[] FusionBook;
+    [SerializeField] public List<ElementRegistry> ElementBook;
+    [SerializeField] public List<FusionRegistry> FusionBook;
 
     private Dictionary<ElementType, ElementRegistry> ElementDictionary;
 
@@ -44,6 +45,8 @@ public class ElementLibrary : Singleton<ElementLibrary> {
             element = new Human(matrixX, matrixY, matrix);
         }  else if (elementType == ElementType.Potato) {
             element = new Potato(matrixX, matrixY, matrix);
+        }  else if (elementType == ElementType.Sandwich) {
+            element = new Sandwich(matrixX, matrixY, matrix);
         }
 
         if (rendererFlag) {

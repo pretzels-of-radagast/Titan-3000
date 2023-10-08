@@ -6,8 +6,6 @@ using UnityEngine.InputSystem;
 public class Card : MonoBehaviour {   
     public ElementType ElementType;
     public RectTransform rectTransform;
-    
-
 
     // properties
     public bool IsMouseOnCard => RectTransformUtility.RectangleContainsScreenPoint(rectTransform, Input.mousePosition, Camera.main);

@@ -1406,6 +1406,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &989006815
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 989006816}
+  - component: {fileID: 989006817}
+  m_Layer: 0
+  m_Name: PrefabMaker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &989006816
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989006815}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.58470076, y: 2.0316541, z: -4.021836}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1620217215}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &989006817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989006815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c49f509ad670fd48b87a825ecbc017d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Sandwich
+  elementType: 9
+  sprite: {fileID: -774038580, guid: e0db3e5488b49414597d838f4f064992, type: 3}
+  BaseRenderer: {fileID: 0}
+  BaseCard: {fileID: 0}
+  library: {fileID: 1620217214}
 --- !u!1 &1071782218
 GameObject:
   m_ObjectHideFlags: 0
@@ -2383,6 +2433,9 @@ MonoBehaviour:
   - type: 8
     renderer: {fileID: 236817296767206093, guid: f56129a816ee37d4dad370ba75dcaaca, type: 3}
     card: {fileID: 4450335195392115864, guid: 9f3e3b1d23dfb874d87decf2eb356a88, type: 3}
+  - type: 9
+    renderer: {fileID: 8556953512937518709, guid: 6851c011a8f0fd94ca5d457ad5781f8e, type: 3}
+    card: {fileID: 2575166468652814837, guid: e1d3e4d382d0bc9499b9a3de3473afb0, type: 3}
   FusionBook: []
 --- !u!4 &1620217215
 Transform:
@@ -2395,7 +2448,8 @@ Transform:
   m_LocalPosition: {x: 1.49574, y: -1.3055621, z: -1.0115632}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 989006816}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

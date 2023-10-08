@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -191,6 +192,12 @@ public class Sim : Singleton<Sim> {
 
     public Resources Resources => celluarMatrix.resources;
     public int Cycle => celluarMatrix.Cycle;
+
+
+    [Header("Steppables")]
+    public CardUnlocker cardUnlocker;
+    public Transform CardHolder;
+
     
     // cache
     [SerializeField] private Camera ViewCamera;
@@ -230,6 +237,10 @@ public class Sim : Singleton<Sim> {
     
     public void Step() {
         celluarMatrix.StepAll();
+        foreach (Card card in CardHolder.GetComponentsInChildren<Card>()) {
+            card.Step();
+        }
+        cardUnlocker.Step();
     }
 
 }

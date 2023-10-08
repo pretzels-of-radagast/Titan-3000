@@ -29,15 +29,14 @@ public class HandHolder : Singleton<HandHolder> {
         Hand.Add(card);
         CalculateCardPositons();
 
-        foreach(Card c in Hand) {
-            c.LerpDefault(0.2f);
-        }
+        ResetCardPositions();
     }
 
     public bool RemoveCard(Card card) {
         if (! Hand.Contains(card)) { return false; }
         Hand.Remove(card);
         CalculateCardPositons();
+        ResetCardPositions();
         Destroy(card.gameObject);
         return true;
     }

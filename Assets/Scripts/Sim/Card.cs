@@ -19,13 +19,17 @@ public class Card : SelectableItem {
     }
 
     public void Step() {
+        NewElementInstance();
         if (element.cardBehaviour == CardBehaviour.Discards) {
             HandHolder.instance.RemoveCard(this);
         }
     }
 
 
-    private void Start() { element = Sim.instance.elementLibrary.NewElementInstance(0, 0, ElementType, null, false); }
+    private void Start() { NewElementInstance(); }
+
+    private void NewElementInstance() { if (element == null) {element = Sim.instance.elementLibrary.NewElementInstance(0, 0, ElementType, null, false);} }
+
     protected override void Update() { HoverStuff(); }
     private void HoverStuff() {
         if (!MousePointer.instance.IsSelected(this)) {

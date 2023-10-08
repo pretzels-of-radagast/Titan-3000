@@ -77,7 +77,7 @@ public class ElementLibrary : Singleton<ElementLibrary> {
         return element;
     }
 
-    private void Awake() { CreateElementDictionary(); }
+    private void Awake() { base.Awake(); CreateElementDictionary(); }
 
     private void CreateElementDictionary() {
         ElementDictionary = new Dictionary<ElementType, ElementRegistry>();

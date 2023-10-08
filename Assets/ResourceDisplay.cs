@@ -9,7 +9,8 @@ public class ResourceDisplay : MonoBehaviour
     public enum Resource {
         Oxygen,
         Food,
-        Human
+        Human,
+        Cycle
     }
 
     public Resource resource;
@@ -17,11 +18,13 @@ public class ResourceDisplay : MonoBehaviour
 
     private void Update() {
         if (resource == Resource.Oxygen) {
-            textMesh.text = $"{Sim.instance.Resources.Oxygen}";
+            textMesh.text = $"{Sim.instance.Resources.Oxygen}%";
         } else if (resource == Resource.Food) {
             textMesh.text = $"{Sim.instance.Resources.Food}";
         } else if (resource == Resource.Human) {
             textMesh.text = $"{Sim.instance.Resources.Human}";
+        } else if (resource == Resource.Cycle) {
+            textMesh.text = $"CYCLE {Sim.instance.Cycle}";
         }
     }
 

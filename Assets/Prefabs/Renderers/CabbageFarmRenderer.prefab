@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 4102252994308188690}
   - component: {fileID: 4102252994308188691}
   m_Layer: 0
-  m_Name: CabbageFarm
+  m_Name: CabbageFarmRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

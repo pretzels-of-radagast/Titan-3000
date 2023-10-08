@@ -16,6 +16,7 @@ public class CelluarMatrix {
     World Behaviour
     */
     public Resources resources;
+    public int Cycle;
 
 
     /*
@@ -31,7 +32,7 @@ public class CelluarMatrix {
         matrixWidth = width;
         matrixHeight = height;
 
-
+        this.Cycle = 0;
 
         matrix = GenerateMatrix();
     }
@@ -72,6 +73,8 @@ public class CelluarMatrix {
                 }
             }
         }
+
+        Cycle += 1;
         
     }
 
@@ -208,6 +211,7 @@ public class Sim : Singleton<Sim> {
     public ElementLibrary elementLibrary;
 
     public Resources Resources => celluarMatrix.resources;
+    public int Cycle => celluarMatrix.Cycle;
     
     // cache
     [SerializeField] private Camera ViewCamera;

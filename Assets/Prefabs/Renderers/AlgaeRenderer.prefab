@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7831533875454280521}
   - component: {fileID: 7831533875454280526}
   m_Layer: 0
-  m_Name: Algae
+  m_Name: AlgaeRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

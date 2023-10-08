@@ -7,6 +7,8 @@ public class Algae : Element
     public Algae(int x, int y, CelluarMatrix celluarMatrix) : base(x, y, celluarMatrix) {
         DailyGain = new Resources(1, 0, 0);
         DieNextTurn = true;
+        Name = "Algae";
+        Description = "Raw Algae, produces oxygen over time when cultivated";
     }
 
 }

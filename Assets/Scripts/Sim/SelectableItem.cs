@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public abstract class SelectableItem : MonoBehaviour
 {
     public ElementType ElementType;
-    [HideInInspector] protected Element element;
+    [HideInInspector] public Element element;
 
     public RectTransform rectTransform;
     protected Image CardPanel;

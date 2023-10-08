@@ -92,6 +92,10 @@ public class CelluarMatrix {
         resources = resources.Subtract(other);
     }
 
+    public void AddCard(ElementType elementType) {
+        elementLibrary.NewCardInstance(elementType);
+    }
+
     /*
     
     REFERENCE TOOLS
@@ -109,6 +113,10 @@ public class CelluarMatrix {
         element.SetCoordinates(x, y);
 
         return true;
+    }
+
+    public bool DeleteElement(int matrixX, int matrixY) {
+        return set(matrixX, matrixY, elementLibrary.NewElementInstance(matrixX, matrixY, ElementType.Air, this, false));
     }
     
     public bool isWithinBounds(int x, int y) { return x >= 0 && y >= 0 && x < matrixWidth && y < matrixHeight; }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7300328177728419056}
   - component: {fileID: 7300328177728419057}
   m_Layer: 0
-  m_Name: HouseRenderer
+  m_Name: VillageRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

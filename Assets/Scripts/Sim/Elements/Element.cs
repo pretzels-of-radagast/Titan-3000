@@ -11,8 +11,13 @@ public abstract class Element {
 
     /* VALUES */
     public Resources Cost;
+    public Resources Gain;
     public Resources DailyGain;
-    public ElementType[] CreatedElementCards;
+    public Resources DailyCost;
+    public List<ElementType> DailyCreatedElementCards;
+    public Resources DestructionCost;
+
+    public bool DieNextTurn;
     
 
     /* EVENTS */
@@ -24,18 +29,31 @@ public abstract class Element {
         matrixX = x;
         matrixY = y;
         matrix = celluarMatrix;
-
+        
+        // set default values
         Cost = new Resources(0, 0, 0);
-
-        Deduct(Cost);
+        Gain = new Resources(0, 0, 0);
+        DailyGain = new Resources(0, 0, 0);
+        DailyCost = new Resources(0, 0, 0);
+        DailyCreatedElementCards = new List<ElementType>();
+        DestructionCost = new Resources(0, 0, 0);
+        DieNextTurn = false;
     }
 
-    public abstract void Step(CelluarMatrix celluarMatrix);
+    public virtual void Step(CelluarMatrix celluarMatrix) {
+        matrix.AddResources(DailyGain);
+        AddDailyCards();
+
+        if (DieNextTurn) {
+            matrix.DeleteElement(matrixX, matrixY);
+        }
+
+    }
     
 
     /*
 
-    RESOURCE MANIPULATION
+    AUTOMATA
 
     */
 
@@ -49,8 +67,21 @@ public abstract class Element {
         matrix.AddResources(resources);
     }
 
-    public void AddCard() {
+    public void AddDailyCards() {
+        if (matrix == null) { return; }
+        foreach (ElementType elementType in DailyCreatedElementCards) {
+            matrix.AddCard(elementType);
+        }
+    }
 
+    /*
+    
+    TOOLS
+
+    */
+
+    public void AddCardToPool(ElementType elementType) {
+        DailyCreatedElementCards.Add(elementType);
     }
 
     /*
@@ -66,6 +97,7 @@ public abstract class Element {
     }
 
     public virtual void Delete() {
+        matrix.DeductResources(DestructionCost);
         OnDelete();
     }
 

@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class Sandwich : Element
 {
-    public Sandwich(int x, int y, CelluarMatrix celluarMatrix) : base(x, y, celluarMatrix)
-    {
+    public Sandwich(int x, int y, CelluarMatrix celluarMatrix) : base(x, y, celluarMatrix) {
+        DailyGain = new Resources(0, 100, 0);
+        DieNextTurn = true;
     }
 
-    public override void Step(CelluarMatrix celluarMatrix) {
-        return;
-    }
 }

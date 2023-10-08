@@ -13,7 +13,12 @@ public enum ElementType {
     Village,
     City,
     Potato,
-    Sandwich
+    Sandwich,
+    PotatoFarm,
+    WheatFarm,
+    Wheat,
+    TomatoFarm,
+    Tomato
 }
 
 public class ElementLibrary : Singleton<ElementLibrary> {
@@ -66,7 +71,7 @@ public class ElementLibrary : Singleton<ElementLibrary> {
         }
     }
 
-    public Card NewCardInstance(ElementType elementType, Element assignee) {
+    public Card NewCardInstance(ElementType elementType) {
         if (!IsElementRegistered(elementType)) { return null; }
 
         GameObject baseObject = ElementDictionary[elementType].card.gameObject;

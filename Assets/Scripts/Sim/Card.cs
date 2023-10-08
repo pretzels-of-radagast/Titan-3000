@@ -9,7 +9,7 @@ public class Card : MonoBehaviour {
 
     // properties
     public bool IsMouseOnCard => RectTransformUtility.RectangleContainsScreenPoint(rectTransform, Input.mousePosition, Camera.main);
-    public bool IsLegible => ElementInstance.Cost.IsLess(Sim.instance.Resources);
+    public bool IsLegible => ElementInstance.Cost.IsLess(Sim.instance.celluarMatrix.resources);
 
     // cached values
     [HideInInspector] private Element ElementInstance;

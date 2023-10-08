@@ -1,18 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StartMenu : MonoBehaviour
-{
-    // Start is called before the first frame update
+{       
+    [SerializeField] GameObject soundMenu;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartGame()
     {
-        
+        SceneManager.LoadScene("Kevin");
+    }
+    
+    public void SoundSettings()
+    {
+        soundMenu.SetActive(true);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+        Debug.Log("Quit Game");
     }
 }

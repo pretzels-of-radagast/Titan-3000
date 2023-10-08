@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+    [SerializeField] GameObject soundMenu;
+
     public static bool isPaused = false;
 
     public GameObject pauseMenuUI;
@@ -44,9 +46,15 @@ public class PauseMenu : MonoBehaviour
         }
     }
     public void Quit(){
-        Debug.Log("quitted game");
+        Debug.Log("Quit Game");
         Application.Quit();
     }
+
+    public void SoundSettings(){
+        soundMenu.SetActive(true);
+
+    }
+
     public void ResumeGame(){
         Resume();
     }

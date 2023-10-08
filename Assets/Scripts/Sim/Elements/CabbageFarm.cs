@@ -6,5 +6,7 @@ public class CabbageFarm : Element
 {
     public CabbageFarm(int x, int y, CelluarMatrix celluarMatrix) : base(x, y, celluarMatrix) {
         AddCardToPool(ElementType.Cabbage);
+        Name = "Cabbage Farm";
+        Description = "A farm to cultivate cabbage. Generates 1 Cabbage card every turn";
     }
 }

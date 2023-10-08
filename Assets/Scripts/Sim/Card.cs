@@ -45,17 +45,20 @@ public class Card : MonoBehaviour {
     }
 
     protected void Update() {
-        if (IsLegible) {
-            bool StartHovering = IsMouseOnCard && LerpCorountine == null;
-            bool isPressed = IsMouseOnCard && Mouse.current.leftButton.isPressed;
+        if (MousePointer.instance.SelectedCard != this) {
+            if (IsLegible) {
+                bool StartHovering = IsMouseOnCard && LerpCorountine == null;
+                bool isPressed = IsMouseOnCard && Mouse.current.leftButton.isPressed;
 
-            if (StartHovering) { LerpPosition(DefaultPosition + Vector3.up * 4, 0.2f); }
-            if (isPressed) { SelectCard(); }
+                if (StartHovering) { LerpPosition(DefaultPosition + Vector3.up * 4, 0.2f); }
+                if (isPressed) { SelectCard(); }
 
-            UnTint();
-        } else {
-            Tint();
+                UnTint();
+            } else {
+                Tint();
+            }
         }
+        
         
         
         if (!IsMouseOnCard && !isLerpingToDefault) { LerpDefault(0.2f); }
@@ -114,6 +117,7 @@ public class Card : MonoBehaviour {
 
     public void Tint() {
         if (!Tinted) {
+            Debug.Log("tinted");
             CardPanel.color = Color.gray;
             Tinted = true;
         }
@@ -121,6 +125,7 @@ public class Card : MonoBehaviour {
 
     public void UnTint() {
         if (Tinted) {
+            Debug.Log("untinted");
             CardPanel.color = Color.white;
             Tinted = false;
         }

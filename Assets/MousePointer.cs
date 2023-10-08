@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class MousePointer : Singleton<MousePointer>
 {
     public Canvas parentCanvas;
-    private Card SelectedCard;
+    public Card SelectedCard;
 
     public bool IsLegiblePlacement;
     

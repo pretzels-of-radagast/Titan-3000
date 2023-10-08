@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CardBehaviour {
+    Permanent,
+    OneUse,
+    Discards
+}
+
 public abstract class Element {
 
     /* MATRIX */
@@ -19,6 +25,8 @@ public abstract class Element {
     public Resources DestructionCost;
 
     public bool DieNextTurn;
+
+    public CardBehaviour cardBehaviour;
     
 
     /* EVENTS */
@@ -39,6 +47,7 @@ public abstract class Element {
         DailyCreatedElementCards = new List<ElementType>();
         DestructionCost = new Resources(0, 0, 0);
         DieNextTurn = false;
+        cardBehaviour = CardBehaviour.OneUse;
     }
 
     public void Start() {

@@ -8,12 +8,15 @@ public class MousePointer : Singleton<MousePointer>
 {
     public Canvas parentCanvas;
     private Card SelectedCard;
+
+    public bool IsLegiblePlacement;
     
     // private bool PreviouslyOnCancelRegion;
     // public RectTransform CancelRegion;
 
     public void Update() {
         MoveToMousePoint();
+        UpdateLegibility();
         UpdateDeselect();
     }
 
@@ -23,10 +26,21 @@ public class MousePointer : Singleton<MousePointer>
         transform.position = parentCanvas.transform.TransformPoint(movePos);
     }
 
+    public void UpdateLegibility() {
+        if (SelectedCard == null) return;
+        
+        IsLegiblePlacement = SelectedCard.IsValidSpawnLocation(Input.mousePosition);
+        if (IsLegiblePlacement) {
+            SelectedCard.UnTint();
+        } else {
+            SelectedCard.Tint();
+        }
+    }
+
     public void UpdateDeselect() {
         bool isMouseUp = !Mouse.current.leftButton.isPressed;
         if (isMouseUp) {
-            if (SelectedCard != null && SelectedCard.IsLegible) {
+            if (SelectedCard != null && SelectedCard.IsLegible && IsLegiblePlacement) {
                 SelectedCard.Spawn(Input.mousePosition);
             }
             DeSelectCard();

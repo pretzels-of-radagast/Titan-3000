@@ -8,6 +8,7 @@ public class Human : Element
         DailyCost = new Resources(0, 1, 0);
         Gain = new Resources(0, 0, 1);
         DestructionCost = new Resources(0, 1, 0);
+        cardBehaviour = CardBehaviour.Permanent;
     }
     
 }

@@ -2,10 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
-public class Card : MonoBehaviour {   
+[RequireComponent(typeof(Image))]
+public class Card : MonoBehaviour {
     public ElementType ElementType;
     public RectTransform rectTransform;
+
+    private Image CardPanel;
+    private bool Tinted;
+
 
     // properties
     public bool IsMouseOnCard => RectTransformUtility.RectangleContainsScreenPoint(rectTransform, Input.mousePosition, Camera.main);
@@ -18,8 +24,21 @@ public class Card : MonoBehaviour {
     [HideInInspector] private bool isLerpingToDefault;
 
     public void SelectCard() { MousePointer.instance.SelectItem(this); }
-    public void Spawn(Vector3 screenSpacePoint) { Sim.instance.SpawnElement(ElementType, screenSpacePoint); }
+    public void Spawn(Vector3 screenSpacePoint) {
+        Sim.instance.SpawnElement(ElementType, screenSpacePoint);
+        
+        if (ElementInstance.cardBehaviour == CardBehaviour.OneUse) {
+            HandHolder.instance.RemoveCard(this);
+        }
+    }
 
+    public bool IsValidSpawnLocation(Vector3 screenSpacePoint) {
+        return Sim.instance.IsValidSpawnLocation(ElementType, screenSpacePoint);
+    }
+
+    private void Awake() {
+        CardPanel = GetComponent<Image>(); 
+    }
 
     private void Start() {
         ElementInstance = Sim.instance.elementLibrary.NewElementInstance(0, 0, ElementType, null, false);
@@ -32,10 +51,20 @@ public class Card : MonoBehaviour {
 
             if (StartHovering) { LerpPosition(DefaultPosition + Vector3.up * 4, 0.2f); }
             if (isPressed) { SelectCard(); }
+
+            UnTint();
+        } else {
+            Tint();
         }
         
         
         if (!IsMouseOnCard && !isLerpingToDefault) { LerpDefault(0.2f); }
+    }
+
+    protected void Step() {
+        if (ElementInstance.cardBehaviour == CardBehaviour.Discards) {
+            HandHolder.instance.RemoveCard(this);
+        }
     }
 
     /* 
@@ -75,6 +104,26 @@ public class Card : MonoBehaviour {
         rectTransform.localPosition = targetPosition; // snap in case of any floating point errors
 
         LerpCorountine = null;
+    }
+
+    /*
+
+    VISUALS
+
+    */
+
+    public void Tint() {
+        if (!Tinted) {
+            CardPanel.color = Color.gray;
+            Tinted = true;
+        }
+    }
+
+    public void UnTint() {
+        if (Tinted) {
+            CardPanel.color = Color.white;
+            Tinted = false;
+        }
     }
 
 }

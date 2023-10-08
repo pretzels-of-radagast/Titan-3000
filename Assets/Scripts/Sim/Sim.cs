@@ -101,6 +101,7 @@ public class CelluarMatrix {
     REFERENCE TOOLS
 
     */
+
     public Element get(int x, int y) { return !isWithinBounds(x, y) ? null : matrix[y][x]; }
     public Element[] getRow(int y) { return !isWithinBounds(0, y) ? null : matrix[y]; }
 
@@ -193,6 +194,16 @@ public class CelluarMatrix {
         return true;
     }
 
+    public bool IsValidSpawnLocation(Vector2 screenSpacePoint, RectTransform spriteRect, Camera camera, ElementType elementType) {
+        Vector2 matrixCoordinates = GetMatrixCoordinates(screenSpacePoint, spriteRect, camera);
+        if (!isWithinBounds((int) matrixCoordinates.x, (int) matrixCoordinates.y)) { return false; }
+        Element original = get((int) matrixCoordinates.x, (int) matrixCoordinates.y);
+        if (original == Air.getInstance()) { return true; }
+        if (!elementLibrary.IsFusionRegistered(elementType, original.elementType)) { return false; }
+
+        return true;
+    }
+
     public bool SpawnElement(Vector2 screenSpacePoint, RectTransform spriteRect, Camera camera, ElementType elementType) {
         Vector2 matrixCoordinates = GetMatrixCoordinates(screenSpacePoint, spriteRect, camera);
         Debug.Log($"{(int) matrixCoordinates.x} {(int) matrixCoordinates.y}");
@@ -256,6 +267,10 @@ public class Sim : Singleton<Sim> {
 
     public bool SpawnElement(ElementType elementType, Vector2 screenSpacePoint) {
         return celluarMatrix.SpawnElement(screenSpacePoint, simBounds, ViewCamera, elementType);
+    }
+
+    public bool IsValidSpawnLocation(ElementType elementType, Vector2 screenSpacePoint) {
+        return celluarMatrix.IsValidSpawnLocation(screenSpacePoint, simBounds, ViewCamera, elementType);
     }
 
     /*

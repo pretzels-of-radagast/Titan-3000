@@ -38,6 +38,7 @@ public class HandHolder : Singleton<HandHolder> {
         if (! Hand.Contains(card)) { return false; }
         Hand.Remove(card);
         CalculateCardPositons();
+        Destroy(card.gameObject);
         return true;
     }
 

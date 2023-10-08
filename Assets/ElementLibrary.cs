@@ -18,7 +18,8 @@ public enum ElementType {
     WheatFarm,
     Wheat,
     TomatoFarm,
-    Tomato
+    Tomato,
+    Wabubby
 }
 
 public class ElementLibrary : Singleton<ElementLibrary> {
@@ -68,6 +69,8 @@ public class ElementLibrary : Singleton<ElementLibrary> {
             element = new City(matrixX, matrixY, matrix);
         } else if (elementType == ElementType.Sandwich) {
             element = new Sandwich(matrixX, matrixY, matrix);
+        } else if (elementType == ElementType.Wabubby) {
+            element = new Wabubby(matrixX, matrixY, matrix);
         }
         element.elementType = elementType;
         

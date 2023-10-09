@@ -5,6 +5,7 @@ using UnityEngine;
 public class Dog : Element
 {
     public Dog(int x, int y, CelluarMatrix celluarMatrix) : base(x, y, celluarMatrix) {
-       
+        Name = "Dog";
+        Description = "awwwwwwwwwwwwww";
     }
 }

@@ -19,7 +19,10 @@ public enum ElementType {
     Wheat,
     TomatoFarm,
     Tomato,
-    Wabubby
+    Wabubby,
+    AlgaeSandwich,
+    Bread,
+    Burger, Bush, BusinessMan, DemonicFace, Dog, DogFarm, DogMeat, Drill, Engineer, Factory, FlyingCity, Forest, Furnace, Garbage, Hospital, Ingot, MarsRover, MegaCity, OxygenGenerator, Pizza, RawOre, Researcher, Rocket, SaturnBurger, School, SuperPlant, SuperPlantFarm, TitanBurger, TomatoMan, Tree
 }
 
 public class ElementLibrary : Singleton<ElementLibrary> {

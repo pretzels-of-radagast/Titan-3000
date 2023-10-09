@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class Human : Element
         Gain = new Resources(0, 0, 1);
         DestructionCost = new Resources(0, 1, 0);
         cardBehaviour = CardBehaviour.Permanent;
+        Name = "Human";
+        Description = "Evolution's finest work!";
     }
     
 }

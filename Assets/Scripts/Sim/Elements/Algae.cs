@@ -8,7 +8,7 @@ public class Algae : Element
         DailyGain = new Resources(1, 0, 0);
         DieNextTurn = true;
         Name = "Algae";
-        Description = "Raw Algae, produces oxygen over time when cultivated";
+        Description = "Raw Algae, produces oxygen the next turn when placed";
     }
 
 }

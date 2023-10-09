@@ -88,7 +88,6 @@ public abstract class SelectableItem : MonoBehaviour
 
     public void Tint() {
         if (!Tinted) {
-            Debug.Log("tinted");
             CardPanel.color = Color.gray;
             Tinted = true;
         }
@@ -96,7 +95,6 @@ public abstract class SelectableItem : MonoBehaviour
 
     public void UnTint() {
         if (Tinted) {
-            Debug.Log("untinted");
             CardPanel.color = Color.white;
             Tinted = false;
         }

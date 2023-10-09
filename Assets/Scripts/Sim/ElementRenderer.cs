@@ -25,7 +25,12 @@ public class ElementRenderer : SelectableItem
 
         element.OnPositionChanged += UpdatePosition;
         element.OnDelete += Delete;
+        element.OnGain += OnGain;
         UpdatePosition();
+    }
+
+    private void OnGain(Resources resources) {
+        NumberParticleCreator.CreateParticle(resources, transform.localPosition);
     }
 
     private void Delete() {

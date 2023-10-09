@@ -28,4 +28,8 @@ public class Resources
         return Oxygen <= other.Oxygen && Food <= other.Food && Human <= other.Human;
     }
 
+    public float Sum() {
+        return Oxygen + Food + Human;
+    }
+
 }

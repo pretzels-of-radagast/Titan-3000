@@ -35,6 +35,7 @@ public abstract class Element {
     /* EVENTS */
     public delegate void OnPositionChangedHandler(); public event OnPositionChangedHandler OnPositionChanged = delegate{};
     public delegate void OnDeletedHandler(); public event OnDeletedHandler OnDelete = delegate{};
+    public delegate void OnGainHandler(Resources resources); public event OnGainHandler OnGain = delegate{};
 
 
     public Element(int x, int y, CelluarMatrix celluarMatrix) {
@@ -62,7 +63,7 @@ public abstract class Element {
     }
 
     public virtual void Step(CelluarMatrix celluarMatrix) {
-        matrix.AddResources(DailyGain);
+        Add(DailyGain);
         AddDailyCards();
 
         if (DieNextTurn) {
@@ -85,7 +86,13 @@ public abstract class Element {
 
     public void Add(Resources resources) {
         if (matrix == null) { return; }
+
         matrix.AddResources(resources);
+        
+        if (resources.Sum() > 0) {
+            OnGain(resources);
+        }
+        
     }
 
     public void AddDailyCards() {

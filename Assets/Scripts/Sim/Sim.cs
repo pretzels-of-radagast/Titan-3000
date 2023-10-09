@@ -161,6 +161,14 @@ public class CelluarMatrix {
         return true;
     }
 
+    public bool DeleteElement(Vector2 screenSpacePoint, RectTransform spriteRect, Camera camera) {
+        Vector2 matrixCoordinates = GetMatrixCoordinates(screenSpacePoint, spriteRect, camera);
+        if (!isWithinBounds((int) matrixCoordinates.x, (int) matrixCoordinates.y)) { return false; }
+
+        DeleteElement((int) matrixCoordinates.x, (int) matrixCoordinates.y);
+        return true;
+    }
+
     public Vector2 GetMatrixCoordinates(Vector2 screenSpacePoint, RectTransform spriteRect, Camera camera) {
         Vector2 RectSpacePoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(spriteRect, screenSpacePoint, camera, out RectSpacePoint);
@@ -237,6 +245,10 @@ public class Sim : Singleton<Sim> {
 
     public bool IsValidSetLocation(ElementType elementType, Vector2 screenSpacePoint) {
         return celluarMatrix.IsValidSetLocation(screenSpacePoint, simBounds, ViewCamera, elementType);
+    }
+
+    public bool DeleteElement(Vector2 screenSpacePoint) {
+        return celluarMatrix.DeleteElement(screenSpacePoint, simBounds, ViewCamera);
     }
 
     /*

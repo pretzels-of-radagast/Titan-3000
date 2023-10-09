@@ -51,6 +51,8 @@ public class MousePointer : Singleton<MousePointer>
         if (SelectedItem != null && use) {
             if (SelectedItem.IsLegibleCost() && IsLegiblePlacement) {
                 SelectedItem.Spawn(Input.mousePosition);
+
+                SFXSystem.instance.PlayVariatedSFX(PopInAudioClip);
             }
             DeSelectCard();
         }
@@ -63,6 +65,10 @@ public class MousePointer : Singleton<MousePointer>
         item.transform.SetParent(transform);
         item.StopMovement();
         SelectedItem = item;
+
+        if (SelectedItem.GetType() == typeof(ElementRenderer)) {
+            SFXSystem.instance.PlayVariatedSFX(PopOutAudioClip);
+        }
     }
 
     public void DeSelectCard() {

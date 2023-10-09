@@ -35,9 +35,7 @@ public class MusicSystem : Singleton<MusicSystem>
         PlayNextClip();
     }
 
-
-
-
+    
     private void Start() {
         MasterMixer.SetFloat($"Music{1}Volume", DefaultMusicVolume);
         MasterMixer.SetFloat($"Music{2}Volume", DefaultMusicVolume);
@@ -80,16 +78,6 @@ public class MusicSystem : Singleton<MusicSystem>
 	public void PlayNextClip() {
         if (MusicClipQueue.Count == 0) { return; }
 
-        if (MusicClipQueue.Peek().FadeInFlag) {
-            // fade out the old song silmutaneously
-            
-            AudioSource temp = FadeMusicSource;
-            FadeMusicSource = MusicSource;
-            MusicSource = FadeMusicSource;
-
-            FadeOut(CurrentMusicClip, MusicSource.time);
-        }
-
         CurrentMusicClip = MusicClipQueue.Peek();
         MusicClipQueue.Dequeue();
 
@@ -100,17 +88,18 @@ public class MusicSystem : Singleton<MusicSystem>
             MusicSource.clip = CurrentMusicClip.Clip;
             MusicSource.Play();
         } else if (CurrentMusicClip.Type == MusicClip.ClipType.Loop) {
+            MusicSource.Stop();
             MusicSource.loop = true;
             MusicSource.clip = CurrentMusicClip.Clip;
             MusicSource.Play();
-            MusicClipQueue.Clear();
+            // MusicClipQueue.Clear();
         } else if (CurrentMusicClip.Type == MusicClip.ClipType.PlayOnce) {
             MusicSource.loop = false;
             MusicSource.clip = CurrentMusicClip.Clip;
             MusicSource.Play();
         }
         
-        PlayNextClipLater(CurrentMusicClip.Duration);
+        // PlayNextClipLater(CurrentMusicClip.Duration);
 	}
 
     public void PlayNextClipLater(float delay) {

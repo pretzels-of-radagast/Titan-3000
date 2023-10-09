@@ -31,11 +31,19 @@ public class CardUnlocker : MonoBehaviour
         
         if (unlockIndex < elementUnlocks.Length && Sim.instance.Resources.Oxygen >= currentUnlock.OxygenThreshold) {
             StartUnlockCoroutine();
-
             AddPosterCard(currentUnlock.elementType);
+            SFXSystem.instance.PlayVariatedSFX(ResearchSFX);
 
             Sim.instance.celluarMatrix.AddCard(currentUnlock.elementType);
             unlockIndex += 1;
+
+            if (Sim.instance.Resources.Oxygen >= 5) {
+                Debug.Log("next");
+                MusicSystem.instance.PlayNextClip();
+            } else if (Sim.instance.Resources.Oxygen >= 75) {
+                MusicSystem.instance.PlayNextClip();
+            }
+
         }
     }
 
@@ -74,7 +82,6 @@ public class CardUnlocker : MonoBehaviour
             transform.localPosition = new Vector3(MoveCurve.Evaluate(Elapsed / Delay) * (EndX - StartX) + StartX, transform.position.y);
             yield return null;
         }
-        
     }
 
     

@@ -198,11 +198,15 @@ public class Sim : Singleton<Sim> {
     public CardUnlocker cardUnlocker;
     public Transform CardHolder;
 
+    [HideInInspector] public int CardsPlayedThisTurn;
+    public bool CanPlay => CardsPlayedThisTurn < 5;
     
     // cache
     [SerializeField] private Camera ViewCamera;
     [SerializeField] private RectTransform simBounds;
     [SerializeField] private Resources startingResources;
+
+    public delegate void OnSpawnHandler(); public event OnSpawnHandler OnSpawn = delegate{};
 
 
     private void Awake() {
@@ -226,6 +230,8 @@ public class Sim : Singleton<Sim> {
     }
 
     public bool SpawnElement(ElementType elementType, Vector2 screenSpacePoint) {
+        CardsPlayedThisTurn += 1;
+        OnSpawn();
         return celluarMatrix.SpawnElement(screenSpacePoint, simBounds, ViewCamera, elementType);
     }
 
@@ -243,6 +249,9 @@ public class Sim : Singleton<Sim> {
             card.Step();
         }
         cardUnlocker.Step();
+
+        CardsPlayedThisTurn = 0;
+        OnSpawn();
     }
 
 }

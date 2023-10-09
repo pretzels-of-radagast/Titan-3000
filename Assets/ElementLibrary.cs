@@ -22,7 +22,7 @@ public enum ElementType {
     Wabubby,
     AlgaeSandwich,
     Bread,
-    Burger, Bush, BusinessMan, DemonicFace, Dog, DogFarm, DogMeat, Drill, Engineer, Factory, FlyingCity, Forest, Furnace, Garbage, Hospital, Ingot, MarsRover, MegaCity, OxygenGenerator, Pizza, RawOre, Researcher, Rocket, SaturnBurger, School, SuperPlant, SuperPlantFarm, TitanBurger, TomatoMan, Tree
+    Burger, Bush, BusinessMan, DemonicFace, Dog, DogFarm, DogMeat, Drill, Engineer, Factory, FlyingCity, Forest, Furnace, Garbage, Hospital, Ingot, MarsRover, MegaCity, OxygenGenerator, Pizza, RawOre, Researcher, Rocket, SaturnBurger, School, SuperPlant, SuperPlantFarm, TitanBurger, TomatoMan, Tree, Salad
 }
 
 public class ElementLibrary : Singleton<ElementLibrary> {
@@ -74,7 +74,104 @@ public class ElementLibrary : Singleton<ElementLibrary> {
             element = new Sandwich(matrixX, matrixY, matrix);
         } else if (elementType == ElementType.Wabubby) {
             element = new Wabubby(matrixX, matrixY, matrix);
+        } else if (elementType == ElementType.AlgaeSandwich) {
+            element = new AlgaeSandwich(matrixX, matrixY, matrix);
         }
+        else if (elementType == ElementType.Bread) {
+            element = new Bread(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.Burger) {
+            element = new Burger(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.Bush) {
+            element = new Bush(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.BusinessMan) {
+            element = new BusinessMan(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.DemonicFace) {
+            element = new DemonicFace(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.Dog) {
+            element = new Dog(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.DogFarm) {
+            element = new DogFarm(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.DogMeat) {
+            element = new DogMeat(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.Drill) {
+            element = new Drill(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.Engineer) {
+            element = new Engineer(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.Factory) {
+            element = new Factory(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.FlyingCity) {
+            element = new FlyingCity(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.Forest) {
+            element = new Forest(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.Furnace) {
+            element = new Furnace(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.Garbage) {
+            element = new Garbage(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.Hospital) {
+            element = new Hospital(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.Ingot) {
+            element = new Ingot(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.MarsRover) {
+            element = new MarsRover(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.MegaCity) {
+            element = new MegaCity(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.OxygenGenerator) {
+            element = new OxygenGenerator(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.Pizza) {
+            element = new Pizza(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.RawOre) {
+            element = new RawOre(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.Researcher) {
+            element = new Researcher(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.Rocket) {
+            element = new Rocket(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.SaturnBurger) {
+            element = new SaturnBurger(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.School) {
+            element = new School(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.SuperPlant) {
+            element = new SuperPlant(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.SuperPlantFarm) {
+            element = new SuperPlantFarm(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.TitanBurger) {
+            element = new TitanBurger(matrixX, matrixY, matrix);
+        }
+        else if (elementType == ElementType.TomatoMan) {
+            element = new TomatoMan(matrixX, matrixY, matrix);
+        } else if (elementType == ElementType.Tree) {
+            element = new Tree(matrixX, matrixY, matrix);
+        }else if (elementType == ElementType.Salad) {
+            element = new Salad(matrixX, matrixY, matrix);
+        }
+
         element.elementType = elementType;
         
         if (discoverFlag) {

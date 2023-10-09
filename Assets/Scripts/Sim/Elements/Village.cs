@@ -8,5 +8,7 @@ public class Village : Element
         DailyCost = new Resources(0, 10, 0);
         Gain = new Resources(0, 0, 10);
         DestructionCost = new Resources(0, 0, 10);
+        Name = "Village";
+        Description = "A small civilzation of humans";
     }
 }

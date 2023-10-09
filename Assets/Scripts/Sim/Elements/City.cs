@@ -8,5 +8,7 @@ public class City : Element
         DailyCost = new Resources(0, 100, 0);
         Gain = new Resources(0, 0, 100);
         DestructionCost = new Resources(0, 100, 0);
+        Name = "City";
+        Description = "A bustling economic centre for human activity";
     }
 }

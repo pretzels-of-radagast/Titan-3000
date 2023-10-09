@@ -28,8 +28,8 @@ public class CardUnlocker : MonoBehaviour
 
     public void Step() {
         ElementUnlock currentUnlock = elementUnlocks[unlockIndex];
-
-        if (Sim.instance.Resources.Oxygen >= currentUnlock.OxygenThreshold) {
+        
+        if (unlockIndex < elementUnlocks.Length && Sim.instance.Resources.Oxygen >= currentUnlock.OxygenThreshold) {
             StartUnlockCoroutine();
 
             AddPosterCard(currentUnlock.elementType);

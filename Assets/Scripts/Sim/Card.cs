@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 public class Card : SelectableItem {
 
-    public override bool IsLegibleCost() { return element.Cost.IsLess(Sim.instance.celluarMatrix.resources); }
+    public override bool IsLegibleCost() { return element.Cost.IsLess(Sim.instance.celluarMatrix.resources) && Sim.instance.CanPlay; }
     public override bool IsLegiblePlacement(Vector3 screenPoint) { return IsValidSetLocation(screenPoint); }
 
     public override void Spawn(Vector3 screenSpacePoint) {
         Debug.Log("spawn");
         Sim.instance.SpawnElement(ElementType, screenSpacePoint);
-        
+
         if (element.cardBehaviour == CardBehaviour.OneUse) {
             HandHolder.instance.RemoveCard(this);
         }

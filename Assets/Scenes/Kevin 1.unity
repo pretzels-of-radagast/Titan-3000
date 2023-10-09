@@ -2652,7 +2652,7 @@ RectTransform:
   - {fileID: 1916990587}
   - {fileID: 1805822460}
   - {fileID: 2091146666}
-  - {fileID: 1550933839}
+  - {fileID: 1552187543}
   - {fileID: 1909284072}
   - {fileID: 162156220}
   m_Father: {fileID: 0}
@@ -3396,7 +3396,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1519216897}
   m_CullTransparentMesh: 1
---- !u!1 &1550933838
+--- !u!1 &1552187542
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3404,42 +3404,51 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1550933839}
-  - component: {fileID: 1550933840}
-  m_Layer: 0
-  m_Name: NumberParticleHolder
+  - component: {fileID: 1552187543}
+  - component: {fileID: 1552187544}
+  m_Layer: 5
+  m_Name: NumberParticleCreator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1550933839
-Transform:
+--- !u!224 &1552187543
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1550933838}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_GameObject: {fileID: 1552187542}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 16, y: 16, z: 16}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1250782747}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1550933840
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1552187544
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1550933838}
+  m_GameObject: {fileID: 1552187542}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63b55a98937a8734d98821c4682af71d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DoPersist: 1
+  oxygen: {r: 0.41960788, g: 0.5803922, b: 0.6745098, a: 1}
+  food: {r: 0.5568628, g: 0.43921572, b: 0.28627452, a: 1}
+  human: {r: 0.5686275, g: 0.36862746, b: 0.29803923, a: 1}
   numberParticle: {fileID: 3224990311106083419, guid: bfd7c0e1982668c4883ee9f60435f6d3, type: 3}
 --- !u!1 &1559597888
 GameObject:

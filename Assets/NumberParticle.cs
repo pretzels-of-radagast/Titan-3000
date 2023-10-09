@@ -14,16 +14,16 @@ public class NumberParticle : MonoBehaviour {
     public void Initalize(Color color, Vector3 position, int number) {
         textMesh.text = $"+{number}";
         textMesh.color = color;
-        transform.localPosition = position;
+        transform.position = position;
 
-        Destroy(gameObject, 5f);
+        Destroy(gameObject, 1f);
     }
 
     private void Update() {
-        transform.localPosition = new Vector3(
-            transform.localPosition.x + velocity.x * Time.deltaTime, 
-            transform.localPosition.y + velocity.y * Time.deltaTime, 
-            transform.localPosition.z
+        transform.position = new Vector3(
+            transform.position.x + velocity.x * Time.deltaTime, 
+            transform.position.y + velocity.y * Time.deltaTime, 
+            transform.position.z
         );
     }
 

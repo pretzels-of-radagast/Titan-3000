@@ -30,7 +30,7 @@ public class ElementRenderer : SelectableItem
     }
 
     private void OnGain(Resources resources) {
-        NumberParticleCreator.CreateParticle(resources, transform.localPosition);
+        NumberParticleCreator.instance.CreateParticle(resources, transform.position);
     }
 
     private void Delete() {

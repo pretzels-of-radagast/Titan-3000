@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AlgaeSandwich : MonoBehaviour
+public class AlgaeSandwich : Element
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public AlgaeSandwich(int x, int y, CelluarMatrix celluarMatrix) : base(x, y, celluarMatrix) {
+       
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   
 }

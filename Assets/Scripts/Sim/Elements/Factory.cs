@@ -2,17 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Factory : MonoBehaviour
+public class Factory : Element
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+      public Factory(int x, int y, CelluarMatrix celluarMatrix) : base(x, y, celluarMatrix) {
+       
     }
 }

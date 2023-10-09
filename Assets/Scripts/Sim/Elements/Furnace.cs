@@ -2,17 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Furnace : MonoBehaviour
+public class Furnace : Element
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public Furnace(int x, int y, CelluarMatrix celluarMatrix) : base(x, y, celluarMatrix) {
+       
     }
 }

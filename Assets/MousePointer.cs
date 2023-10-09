@@ -38,7 +38,7 @@ public class MousePointer : Singleton<MousePointer>
     public void UpdateLegibility() {
         if (SelectedItem == null) return;
         
-        IsLegiblePlacement = SelectedItem.IsValidSetLocation(Input.mousePosition);
+        IsLegiblePlacement = SelectedItem.IsLegiblePlacement(Input.mousePosition);
         if (IsLegiblePlacement) {
             SelectedItem.UnTint();
         } else {
@@ -82,6 +82,10 @@ public class MousePointer : Singleton<MousePointer>
         } else if (SelectedItem.GetType() == typeof(ElementRenderer)) {
             SelectedItem.transform.SetParent(rendererHolder, true);
             (SelectedItem as ElementRenderer).UpdatePosition();
+            SelectedItem = null;
+        } else if (SelectedItem.GetType() == typeof(HammerCard)) {
+            SelectedItem.transform.SetParent(cardHolder, true);
+            SelectedItem.LerpDefault(0.1f);
             SelectedItem = null;
         }
     }

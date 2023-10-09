@@ -14,7 +14,7 @@ public class StartMenu : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Kevin");
+        SceneManager.LoadScene("Kevin 2");
     }
     
     public void SoundSettings()

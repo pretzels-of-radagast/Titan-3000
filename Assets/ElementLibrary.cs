@@ -22,7 +22,7 @@ public enum ElementType {
     Wabubby,
     AlgaeSandwich,
     Bread,
-    Burger, Bush, BusinessMan, DemonicFace, Dog, DogFarm, DogMeat, Drill, Engineer, Factory, FlyingCity, Forest, Furnace, Garbage, Hospital, Ingot, MarsRover, MegaCity, OxygenGenerator, Pizza, RawOre, Researcher, Rocket, SaturnBurger, School, SuperPlant, SuperPlantFarm, TitanBurger, TomatoMan, Tree, Salad
+    Burger, Doge, Bush, BusinessMan, DemonicFace, Dog, DogFarm, DogMeat, Drill, Engineer, Factory, FlyingCity, Forest, Furnace, Garbage, Hospital, Ingot, MarsRover, MegaCity, OxygenGenerator, Pizza, RawOre, Researcher, Rocket, SaturnBurger, School, SuperPlant, SuperPlantFarm, TitanBurger, TomatoMan, Tree, Salad
 }
 
 public class ElementLibrary : Singleton<ElementLibrary> {
@@ -53,20 +53,20 @@ public class ElementLibrary : Singleton<ElementLibrary> {
             element = new Cabbage(matrixX, matrixY, matrix);
         } else if (elementType == ElementType.CabbageFarm) {
             element = new CabbageFarm(matrixX, matrixY, matrix);
-        }/*  else if (elementType == ElementType.Wheat) {
+        }  else if (elementType == ElementType.Wheat) {
             element = new Wheat(matrixX, matrixY, matrix);
         } else if (elementType == ElementType.WheatFarm) {
             element = new WheatFarm(matrixX, matrixY, matrix);
-        }*/ else if (elementType == ElementType.Potato) {
+        } else if (elementType == ElementType.Potato) {
             element = new Potato(matrixX, matrixY, matrix);
         } else if (elementType == ElementType.PotatoFarm) {
             Debug.Log("making a potato farm");
             element = new PotatoFarm(matrixX, matrixY, matrix);
-        }/* else if (elementType == ElementType.Tomato) {
+        } else if (elementType == ElementType.Tomato) {
             element = new Tomato(matrixX, matrixY, matrix);
         } else if (elementType == ElementType.TomatoFarm) {
             element = new TomatoFarm(matrixX, matrixY, matrix);
-        } */else if (elementType == ElementType.Village) {
+        } else if (elementType == ElementType.Village) {
             element = new Village(matrixX, matrixY, matrix);
         } else if (elementType == ElementType.City) {
             element = new City(matrixX, matrixY, matrix);
@@ -170,6 +170,8 @@ public class ElementLibrary : Singleton<ElementLibrary> {
             element = new Tree(matrixX, matrixY, matrix);
         }else if (elementType == ElementType.Salad) {
             element = new Salad(matrixX, matrixY, matrix);
+        }else if (elementType == ElementType.Doge) {
+            element = new Doge(matrixX, matrixY, matrix);
         }
 
         element.elementType = elementType;

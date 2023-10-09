@@ -27,25 +27,30 @@ public class CardUnlocker : MonoBehaviour
 
 
     public void Step() {
-        ElementUnlock currentUnlock = elementUnlocks[unlockIndex];
-        
-        if (unlockIndex < elementUnlocks.Length && Sim.instance.Resources.Oxygen >= currentUnlock.OxygenThreshold) {
-            StartUnlockCoroutine();
-            AddPosterCard(currentUnlock.elementType);
-            SFXSystem.instance.PlayVariatedSFX(ResearchSFX);
+        try{
+                ElementUnlock currentUnlock = elementUnlocks[unlockIndex];
+                
+                if (unlockIndex < elementUnlocks.Length && Sim.instance.Resources.Oxygen >= currentUnlock.OxygenThreshold) {
+                    StartUnlockCoroutine();
+                    AddPosterCard(currentUnlock.elementType);
+                    SFXSystem.instance.PlayVariatedSFX(ResearchSFX);
 
-            Sim.instance.celluarMatrix.AddCard(currentUnlock.elementType);
-            unlockIndex += 1;
+                    Sim.instance.celluarMatrix.AddCard(currentUnlock.elementType);
+                    unlockIndex += 1;
 
-            if (Sim.instance.Resources.Oxygen >= 5) {
-                Debug.Log("next");
-                MusicSystem.instance.PlayNextClip();
-            } else if (Sim.instance.Resources.Oxygen >= 75) {
-                MusicSystem.instance.PlayNextClip();
+                    if (Sim.instance.Resources.Oxygen >= 5) {
+                        Debug.Log("next");
+                        MusicSystem.instance.PlayNextClip();
+                    } else if (Sim.instance.Resources.Oxygen >= 75) {
+                        MusicSystem.instance.PlayNextClip();
+                    }
+                }
+            }catch (Exception e){
+                
             }
 
-        }
     }
+    
 
     private void AddPosterCard(ElementType elementType) {
         // destroy the previous card

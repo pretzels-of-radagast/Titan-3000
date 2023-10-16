@@ -22,13 +22,46 @@ public enum ElementType {
     Wabubby,
     AlgaeSandwich,
     Bread,
-    Burger, Doge, Bush, BusinessMan, DemonicFace, Dog, DogFarm, DogMeat, Drill, Engineer, Factory, FlyingCity, Forest, Furnace, Garbage, Hospital, Ingot, MarsRover, MegaCity, OxygenGenerator, Pizza, RawOre, Researcher, Rocket, SaturnBurger, School, SuperPlant, SuperPlantFarm, TitanBurger, TomatoMan, Tree, Salad
+    Burger, 
+    Bush, 
+    BusinessMan, 
+    DemonicFace, 
+    Dog, 
+    DogFarm, 
+    Meat, 
+    Drill, 
+    Engineer, 
+    Factory, 
+    FlyingCity, 
+    Forest, 
+    Furnace, 
+    Garbage, 
+    Hospital, 
+    Ingot, 
+    Rover, 
+    MegaCity, 
+    OxygenGenerator, 
+    Pizza, 
+    RawOre, 
+    Researcher, 
+    Rocket, 
+    SaturnBurger, 
+    School, 
+    SuperPlant, 
+    SuperPlantFarm, 
+    TitanBurger, 
+    TomatoMan, 
+    Tree, 
+    Salad, 
+    House,
+    Doge
 }
 
 public class ElementLibrary : Singleton<ElementLibrary> {
 
     [SerializeField] public List<ElementRegistry> ElementBook;
     [SerializeField] public List<FusionRegistry> FusionBook;
+    [SerializeField] public List<StringFusionRegistry> StringFusionBook;
 
     public Transform RendererHolder;
 
@@ -98,7 +131,7 @@ public class ElementLibrary : Singleton<ElementLibrary> {
         else if (elementType == ElementType.DogFarm) {
             element = new DogFarm(matrixX, matrixY, matrix);
         }
-        else if (elementType == ElementType.DogMeat) {
+        else if (elementType == ElementType.Meat) {
             element = new DogMeat(matrixX, matrixY, matrix);
         }
         else if (elementType == ElementType.Drill) {
@@ -128,7 +161,7 @@ public class ElementLibrary : Singleton<ElementLibrary> {
         else if (elementType == ElementType.Ingot) {
             element = new Ingot(matrixX, matrixY, matrix);
         }
-        else if (elementType == ElementType.MarsRover) {
+        else if (elementType == ElementType.Rover) {
             element = new MarsRover(matrixX, matrixY, matrix);
         }
         else if (elementType == ElementType.MegaCity) {
@@ -188,7 +221,32 @@ public class ElementLibrary : Singleton<ElementLibrary> {
         return element;
     }
 
-    private void Awake() { base.Awake(); CreateElementDictionary(); CreateDiscoveredElementsArray(); }
+    private void Awake() { 
+        base.Awake(); 
+        CreateElementDictionary(); 
+        CreateDiscoveredElementsArray(); 
+        Debug.Log(UnregisteredLibraryElements(ElementBook)); 
+
+        AddStringFusionRegistries();
+    }
+
+    private string UnregisteredLibraryElements(List<ElementRegistry> elementBook) {
+        string[] elementNames = Enum.GetNames(typeof(ElementType));
+        bool[] isElementRegistered = new bool[elementNames.Length];
+        foreach (ElementRegistry registry in elementBook) {
+            isElementRegistered[(int) registry.type] = true;
+        }
+
+        string final = "unregistered elements: ";
+
+        for (int i=0; i<isElementRegistered.Length; i++) {
+            if (!isElementRegistered[i]) {
+                final += $"{elementNames[i]}, ";
+            }
+        }
+
+        return final;
+    }
 
     private void CreateElementDictionary() {
         ElementDictionary = new Dictionary<ElementType, ElementRegistry>();
@@ -247,6 +305,23 @@ public class ElementLibrary : Singleton<ElementLibrary> {
     public bool IsElementRegistered(ElementType elementType) { return ElementDictionary.ContainsKey(elementType); }
 
 
+    public void AddStringFusionRegistries() {
+        string[] elementNames = Enum.GetNames(typeof(ElementType));
+        Dictionary<string, ElementType> elementHash = new Dictionary<string, ElementType>();
+        for (int i=0; i<elementNames.Length; i++) {
+            elementHash.Add(elementNames[i], (ElementType) i);
+        }
+
+        foreach (StringFusionRegistry stringRegistry in StringFusionBook) {
+            FusionBook.Add(new FusionRegistry { // throws errors automatically with incorrect names :)
+                a = elementHash[stringRegistry.a],
+                b = elementHash[stringRegistry.b],
+                result = elementHash[stringRegistry.result],
+            });
+        }
+
+    }
+
     public bool IsFusionRegistered(ElementType a, ElementType b) {
         foreach (FusionRegistry fusionRegistry in FusionBook) {
             bool isMatch = (fusionRegistry.a == a && fusionRegistry.b == b) || (fusionRegistry.a == b && fusionRegistry.b == a);
@@ -285,4 +360,12 @@ public struct FusionRegistry {
     public ElementType b;
 
     public ElementType result;
+}
+
+[System.Serializable]
+public struct StringFusionRegistry {
+    public string a;
+    public string b;
+
+    public string result;
 }

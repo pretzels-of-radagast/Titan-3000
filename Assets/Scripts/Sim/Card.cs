@@ -18,7 +18,7 @@ public class Card : SelectableItem {
         }
     }
 
-    public void Step() {
+    public virtual void Step() {
         NewElementInstance();
         if (element.cardBehaviour == CardBehaviour.Discards) {
             HandHolder.instance.RemoveCard(this);
@@ -26,12 +26,12 @@ public class Card : SelectableItem {
     }
 
 
-    private void Start() { NewElementInstance(); }
+    protected virtual void Start() { NewElementInstance(); }
 
-    private void NewElementInstance() { if (element == null) {element = Sim.instance.elementLibrary.NewElementInstance(0, 0, ElementType, null, false, false);} }
+    protected virtual void NewElementInstance() { if (element == null) {element = Sim.instance.elementLibrary.NewElementInstance(0, 0, ElementType, null, false, false);} }
 
     protected override void Update() { HoverStuff(); }
-    private void HoverStuff() {
+    protected virtual void HoverStuff() {
         if (!MousePointer.instance.IsSelected(this)) {
             if (IsLegibleCost()) {
                 UnTint();

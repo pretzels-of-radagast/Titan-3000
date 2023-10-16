@@ -8,7 +8,13 @@ public class HandHolder : Singleton<HandHolder> {
     private float HandItemGap = 0.125f;
 
     private void Start() {
+        SetHand();
         CalculateCardPositons();
+    }
+
+    private void SetHand() {
+        Hand = new List<Card>();
+        foreach (Card card in GetComponentsInChildren<Card>()) { Hand.Add(card); }
     }
 
     private void ResetCardPositions() { foreach(Card c in Hand) { c.StopMovement(); c.LerpDefault(0.2f); } }

@@ -8,6 +8,7 @@ public class MousePointer : Singleton<MousePointer>
 {
 
     public Canvas parentCanvas;
+    public RectTransform TrashRect;
 
     public SelectableItem SelectedItem;
     private bool IsLegiblePlacement;
@@ -19,6 +20,8 @@ public class MousePointer : Singleton<MousePointer>
     [Header("Audioclips")]
     public AudioClip PopInAudioClip;
     public AudioClip PopOutAudioClip;
+    public AudioClip HammerAudioClip;
+    public AudioClip TrashAudioClip;
     
     // private bool PreviouslyOnCancelRegion;
     // public RectTransform CancelRegion;
@@ -49,10 +52,21 @@ public class MousePointer : Singleton<MousePointer>
     public void UpdateUse() {
         bool use = !Mouse.current.leftButton.isPressed;
         if (SelectedItem != null && use) {
-            if (SelectedItem.IsLegibleCost() && IsLegiblePlacement) {
+            bool isOnTrash = RectTransformUtility.RectangleContainsScreenPoint(TrashRect, Input.mousePosition, Camera.main);
+            if (isOnTrash) {
+                if (TrashItem()) {
+                    SFXSystem.instance.PlayVariatedSFX(TrashAudioClip);
+                }
+            }
+            else if (SelectedItem.IsLegibleCost() && IsLegiblePlacement) {
                 SelectedItem.Spawn(Input.mousePosition);
 
-                SFXSystem.instance.PlayVariatedSFX(PopInAudioClip);
+                if (SelectedItem.GetType() == typeof(HammerCard)) {
+                    SFXSystem.instance.PlayVariatedSFX(HammerAudioClip);
+                } else {
+                    SFXSystem.instance.PlayVariatedSFX(PopInAudioClip);
+                }
+                
             }
             DeSelectCard();
         }
@@ -90,7 +104,24 @@ public class MousePointer : Singleton<MousePointer>
         }
     }
 
+    public bool TrashItem() {
+        if (SelectedItem == null) { return false; }
+
+        bool isTrashLegible = SelectedItem.GetType() == typeof(ElementRenderer) || (SelectedItem as Card).element.cardBehaviour != CardBehaviour.Permanent;
+        if (!isTrashLegible) { return false; }
+
+        if (SelectedItem.GetType() == typeof(Card)) {
+            HandHolder.instance.RemoveCard(SelectedItem as Card, true);
+            SelectedItem = null;
+        } else if (SelectedItem.GetType() == typeof(ElementRenderer)) {
+            (SelectedItem as ElementRenderer).element.Trash();
+            SelectedItem = null;
+        }
+        return true;
+    }
+
     public bool IsSelected(SelectableItem item) {
         return SelectedItem == item;
     }
 }
+

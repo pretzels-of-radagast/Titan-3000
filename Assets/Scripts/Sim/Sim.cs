@@ -229,6 +229,11 @@ public class Sim : Singleton<Sim> {
     HELPER FUNCTIONS
     */
 
+    public Element GetElement(Vector2 screenPoint) {
+        Vector2 matrixCoordinates = celluarMatrix.GetMatrixCoordinates(screenPoint, simBounds, ViewCamera);
+        return celluarMatrix.get((int) matrixCoordinates.x, (int) matrixCoordinates.y);
+    }
+
     public Vector2 GetMatrixCoordinates(Vector2 screenPoint) {
         return celluarMatrix.GetMatrixCoordinates(screenPoint, simBounds, ViewCamera);
     }

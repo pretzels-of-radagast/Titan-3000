@@ -126,6 +126,10 @@ public abstract class Element {
         OnPositionChanged();
     }
 
+    public virtual void Trash() {
+        matrix.DeleteElement(matrixX, matrixY);
+    }
+
     public virtual void Delete() {
         matrix.DeductResources(DestructionCost);
         OnDelete();

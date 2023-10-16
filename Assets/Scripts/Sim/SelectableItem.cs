@@ -23,8 +23,8 @@ public abstract class SelectableItem : MonoBehaviour
 
 
     protected virtual void Awake() { CardPanel = GetComponent<Image>(); rectTransform = GetComponent<RectTransform>(); }
-    public void SelectCard() { if (MousePointer.instance.SelectedItem == null) { MousePointer.instance.SelectItem(this); }  }
-    public bool IsValidSetLocation(Vector3 screenSpacePoint) { return Sim.instance.IsValidSetLocation(ElementType, screenSpacePoint); }
+    public virtual void SelectCard() { if (MousePointer.instance.SelectedItem == null) { MousePointer.instance.SelectItem(this); }  }
+    public virtual bool IsValidSetLocation(Vector3 screenSpacePoint) { return Sim.instance.IsValidSetLocation(ElementType, screenSpacePoint); }
 
 
     protected virtual void Update() {

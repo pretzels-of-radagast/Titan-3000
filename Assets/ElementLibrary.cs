@@ -207,6 +207,8 @@ public class ElementLibrary : Singleton<ElementLibrary> {
             element = new Salad(matrixX, matrixY, matrix);
         }else if (elementType == ElementType.Doge) {
             element = new Doge(matrixX, matrixY, matrix);
+        }else if (elementType == ElementType.Flower) {
+            element = new Flower(matrixX, matrixY, matrix);
         }
 
         element.elementType = elementType;

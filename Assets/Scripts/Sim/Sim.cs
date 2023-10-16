@@ -219,7 +219,7 @@ public class Sim : Singleton<Sim> {
     public Transform CardHolder;
 
     [HideInInspector] public int CardsPlayedThisTurn;
-    public bool CanPlay => CardsPlayedThisTurn < 5;
+    public bool CanPlay => CardsPlayedThisTurn < 6;
     
     // cache
     [SerializeField] private Camera ViewCamera;

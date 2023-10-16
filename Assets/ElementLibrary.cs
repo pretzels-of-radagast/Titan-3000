@@ -101,6 +101,8 @@ public class ElementLibrary : Singleton<ElementLibrary> {
             element = new Tomato(matrixX, matrixY, matrix);
         } else if (elementType == ElementType.TomatoFarm) {
             element = new TomatoFarm(matrixX, matrixY, matrix);
+        } else if (elementType == ElementType.House) {
+            element = new House(matrixX, matrixY, matrix);
         } else if (elementType == ElementType.Village) {
             element = new Village(matrixX, matrixY, matrix);
         } else if (elementType == ElementType.City) {

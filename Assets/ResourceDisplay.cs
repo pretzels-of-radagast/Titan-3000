@@ -11,7 +11,8 @@ public class ResourceDisplay : MonoBehaviour
         Food,
         Human,
         Cycle,
-        Research
+        Research,
+        Metal
     }
 
     public Resource resource;
@@ -24,6 +25,8 @@ public class ResourceDisplay : MonoBehaviour
             textMesh.text = $"{Sim.instance.Resources.Food}";
         } else if (resource == Resource.Human) {
             textMesh.text = $"{Sim.instance.Resources.Human}";
+        } else if (resource == Resource.Metal) {
+            textMesh.text = $"{Sim.instance.Resources.Metal}";
         } else if (resource == Resource.Cycle) {
             textMesh.text = $"CYCLE {Sim.instance.Cycle}";
         } else if (resource == Resource.Research) {

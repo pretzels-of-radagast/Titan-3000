@@ -112,10 +112,18 @@ public class CelluarMatrix {
         Element newElement = element;
         Element original = matrix[y][x];
         
-        if (original != Air.getInstance()) { // filled cell; check for fusion
+        if (original != Air.getInstance()) {
+            
+            Debug.Log(elementLibrary.IsAugmentationRegistered(newElement.elementType, original.elementType));
+
             if (elementLibrary.IsFusionRegistered(original.elementType, newElement.elementType)) {
                 newElement = elementLibrary.NewFusionInstance(original.elementType, newElement.elementType, x, y, this);
                 element.Delete();
+            }
+            else if (elementLibrary.IsAugmentationRegistered(original.elementType, newElement.elementType)) {
+                elementLibrary.NewAugmentationCardInstance(original.elementType, newElement.elementType);
+                element.Delete();
+                return true;
             }
         }
 
@@ -147,10 +155,14 @@ public class CelluarMatrix {
         if (!isWithinBounds((int) matrixCoordinates.x, (int) matrixCoordinates.y)) { return false; }
 
         Element original = get((int) matrixCoordinates.x, (int) matrixCoordinates.y);
-        if (original == Air.getInstance()) { return true; }
-        else if (!elementLibrary.IsFusionRegistered(elementType, original.elementType)) { return false; }
 
-        return true;
+        if (original == Air.getInstance()) { return true; }
+        
+        if (elementLibrary.IsFusionRegistered(original.elementType, elementType)) { return true; }
+
+        if (elementLibrary.IsAugmentationRegistered(original.elementType, elementType)) { return true; }
+
+        return false;
     }
 
     public bool SpawnElement(Vector2 screenSpacePoint, RectTransform spriteRect, Camera camera, ElementType elementType) {

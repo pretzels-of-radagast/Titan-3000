@@ -1,29 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
-public class EndScreen : MonoBehaviour
-{
+public class EndScreen : MonoBehaviour {
 
-    [SerializeField] GameObject CreditsPage;
+    public TextMeshProUGUI DateText;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private float delay = 2f;
 
-    // Update is called once per frame
-    public void PlayAgain(){
-        SceneManager.LoadScene("Kevin");
-    }
-    public void LoadMenu(){
-        SceneManager.LoadScene("StartMenu");
-    }
-    
-    public void LoadCredits(){
-        CreditsPage.SetActive(true);
+    private void Update() {
+        if (gameObject.activeSelf) {
+            DateText.text = $"TERRA DATE: Cycle {Sim.instance.Cycle}, 3000";
+
+            if (delay < 0 && Mouse.current.leftButton.isPressed) {
+                Destroy(gameObject);
+            }
+            delay -= Time.deltaTime;
+        }
     }
 
 

@@ -54,7 +54,8 @@ public enum ElementType {
     Tree, 
     Salad, 
     House,
-    Doge
+    Doge,
+    Flower
 }
 
 public class ElementLibrary : Singleton<ElementLibrary> {
@@ -62,6 +63,7 @@ public class ElementLibrary : Singleton<ElementLibrary> {
     [SerializeField] public List<ElementRegistry> ElementBook;
     [SerializeField] public List<FusionRegistry> FusionBook;
     [SerializeField] public List<StringFusionRegistry> StringFusionBook;
+    [SerializeField] public List<AugmentationRegistry> AugmentationBook;
 
     public Transform RendererHolder;
 
@@ -344,6 +346,27 @@ public class ElementLibrary : Singleton<ElementLibrary> {
         return null;
     }
 
+    public bool IsAugmentationRegistered(ElementType reactant, ElementType reagent) {
+        foreach (AugmentationRegistry augRegistry in AugmentationBook) {
+            bool isMatch = augRegistry.reagent == reagent && augRegistry.reactant == reactant;
+            if (isMatch) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public Card NewAugmentationCardInstance(ElementType reactant, ElementType reagent) {
+        foreach (AugmentationRegistry augRegistry in AugmentationBook) {
+            bool isMatch = augRegistry.reagent == reagent && augRegistry.reactant == reactant;
+            if (isMatch) {
+                return NewCardInstance(augRegistry.result);
+            }
+        }
+
+        return null;
+    }
 }
 
 
@@ -368,4 +391,12 @@ public struct StringFusionRegistry {
     public string b;
 
     public string result;
+}
+
+[System.Serializable]
+public struct AugmentationRegistry {
+    public ElementType reagent;
+    public ElementType reactant;
+
+    public ElementType result;
 }

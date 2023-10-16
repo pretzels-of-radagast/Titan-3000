@@ -30,6 +30,9 @@ public abstract class Element {
     public bool DieNextTurn;
 
     public CardBehaviour cardBehaviour;
+
+    // cache
+    private bool isFirstTurn = true;
     
 
     /* EVENTS */
@@ -57,12 +60,13 @@ public abstract class Element {
         cardBehaviour = CardBehaviour.OneUse;
     }
 
-    public void Start() {
-        Deduct(Cost);
-        Add(Gain);
-    }
-
     public virtual void Step(CelluarMatrix celluarMatrix) {
+        if (isFirstTurn) {
+            Deduct(Cost);
+            Add(Gain);
+            isFirstTurn = false;
+        }
+
         Add(DailyGain);
         AddDailyCards();
 
@@ -87,6 +91,7 @@ public abstract class Element {
     public void Add(Resources resources) {
         if (matrix == null) { return; }
 
+        Debug.Log($"{resources.Oxygen} {resources.Food} {resources.Human} {resources.Metal}");
         matrix.AddResources(resources);
         
         if (resources.Sum() > 0) {

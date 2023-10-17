@@ -1101,6 +1101,21 @@ MonoBehaviour:
   CardPosition: {x: -65, y: 0, z: 0}
   TitleCardText: {fileID: 121596573}
   ResearchSFX: {fileID: 8300000, guid: 3673894f2369f834b825fe4f0e079bcc, type: 3}
+  Background0: {fileID: 596976472}
+  Background1: {fileID: 1559597890}
+  Background2: {fileID: 516487047}
+  ZeroPercent:
+  - {fileID: 21300000, guid: 742c524b390a1f34b9ae5dbe367ce4cc, type: 3}
+  - {fileID: 21300000, guid: 4a174a5a5b08ac445bcc669cce85d97a, type: 3}
+  - {fileID: 21300000, guid: fc65d4af4ec7c6a48811e899e0f4bb2c, type: 3}
+  FifteenPercent:
+  - {fileID: 21300000, guid: e5b09b0924622aa458529853da0c4520, type: 3}
+  - {fileID: 21300000, guid: 8f3f4b76a5713124986188cf96312371, type: 3}
+  - {fileID: 21300000, guid: 0db922ba9387bd6418ea7a7856a5d219, type: 3}
+  SeventyPerent:
+  - {fileID: 21300000, guid: 36544d0ffbb24c44b955671a95032a8e, type: 3}
+  - {fileID: 21300000, guid: 7357d6d15054bf74eb255a7037ebfd00, type: 3}
+  - {fileID: 21300000, guid: 490c5d87767c4a840a98e9a545593d39, type: 3}
 --- !u!1 &164285935
 GameObject:
   m_ObjectHideFlags: 0

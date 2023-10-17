@@ -23,6 +23,16 @@ public class CardUnlocker : MonoBehaviour
 
     [Header("SFX")]
     public AudioClip ResearchSFX;
+
+
+    [Header("BackgroundSprites")]
+    public SpriteRenderer Background0;
+    public SpriteRenderer Background1;
+    public SpriteRenderer Background2;
+
+    public Sprite[] ZeroPercent;
+    public Sprite[] FifteenPercent;
+    public Sprite[] SeventyPerent;
     
     // cache
     private int unlockIndex;
@@ -46,11 +56,12 @@ public class CardUnlocker : MonoBehaviour
             Sim.instance.celluarMatrix.AddCard(currentUnlock.elementType);
             unlockIndex += 1;
 
-            if (Sim.instance.Resources.Oxygen >= 5) {
-                Debug.Log("next");
+            if (Sim.instance.Resources.Oxygen >= 15) {
                 MusicSystem.instance.PlayNextClip();
+                SetBackground(FifteenPercent);
             } else if (Sim.instance.Resources.Oxygen >= 75) {
                 MusicSystem.instance.PlayNextClip();
+                SetBackground(SeventyPerent);
             }
         }
 
@@ -96,6 +107,14 @@ public class CardUnlocker : MonoBehaviour
             transform.localPosition = new Vector3(MoveCurve.Evaluate(Elapsed / Delay) * (EndX - StartX) + StartX, transform.position.y);
             yield return null;
         }
+    }
+
+
+
+    private void SetBackground(Sprite[] backgroundSprites) {
+        Background0.sprite = backgroundSprites[0];
+        Background1.sprite = backgroundSprites[1];
+        Background2.sprite = backgroundSprites[2];
     }
 
     

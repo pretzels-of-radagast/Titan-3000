@@ -64,6 +64,7 @@ public class ElementLibrary : Singleton<ElementLibrary> {
     [SerializeField] public List<FusionRegistry> FusionBook;
     [SerializeField] public List<StringFusionRegistry> StringFusionBook;
     [SerializeField] public List<AugmentationRegistry> AugmentationBook;
+    [SerializeField] public List<ElementType> SpecialDiscoveries;
 
     public Transform RendererHolder;
 
@@ -278,8 +279,20 @@ public class ElementLibrary : Singleton<ElementLibrary> {
 
     public int NumberDiscovered() {
         int count = 0;
+        int index = 0;
         foreach (bool discovered in DiscoveredElements) {
-            if (discovered) count += 1;
+            if (discovered && !SpecialDiscoveries.Contains(ElementBook[index].type)) { count += 1; }
+            index++;
+        }
+        return count;
+    }
+
+    public int NumberSpecialDiscovered() {
+        int count = 0;
+        int index = 0;
+        foreach (bool discovered in DiscoveredElements) {
+            if (discovered && SpecialDiscoveries.Contains(ElementBook[index].type)) { count += 1; }
+            index++;
         }
         return count;
     }

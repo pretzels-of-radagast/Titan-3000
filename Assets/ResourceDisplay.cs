@@ -12,7 +12,8 @@ public class ResourceDisplay : MonoBehaviour
         Human,
         Cycle,
         Research,
-        Metal
+        Metal,
+        SpecialResearch
     }
 
     public Resource resource;
@@ -30,7 +31,9 @@ public class ResourceDisplay : MonoBehaviour
         } else if (resource == Resource.Cycle) {
             textMesh.text = $"CYCLE {Sim.instance.Cycle}";
         } else if (resource == Resource.Research) {
-            textMesh.text = $"{ElementLibrary.instance.NumberDiscovered()} / {ElementLibrary.instance.DiscoveredElements.Length}";
+            textMesh.text = $"{ElementLibrary.instance.NumberDiscovered()} / {ElementLibrary.instance.DiscoveredElements.Length - ElementLibrary.instance.SpecialDiscoveries.Count}";
+        } else if (resource == Resource.SpecialResearch) {
+            textMesh.text = $"{ElementLibrary.instance.NumberSpecialDiscovered()} / {ElementLibrary.instance.SpecialDiscoveries.Count}";
         }
     }
 

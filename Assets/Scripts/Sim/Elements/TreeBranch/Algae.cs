@@ -8,7 +8,7 @@ public class Algae : Element
         DailyGain = new Resources(0.5f, 0, 0);
         DieNextTurn = true;
         Name = "Algae";
-        Description = "most basic oxygen producer.";
+        Description = "most basic oxygen producer and used to make farms.";
     }
 
 }

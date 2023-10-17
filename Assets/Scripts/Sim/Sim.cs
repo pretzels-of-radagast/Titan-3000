@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Mono.Cecil;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -18,6 +19,13 @@ public class CelluarMatrix {
     */
     public Resources resources;
     public int Cycle;
+    public bool Alive;
+
+    /*
+    Cheats
+    */
+    private bool doPeopleEat;
+    private float StarvePercent;
 
 
     /*
@@ -34,8 +42,13 @@ public class CelluarMatrix {
         matrixHeight = height;
 
         this.Cycle = 0;
+        this.Alive = true;
 
         matrix = GenerateMatrix();
+    }
+
+    public void SetCheats(bool doPeopleEat) {
+        this.doPeopleEat = doPeopleEat;
     }
 
     public Element[][] GenerateMatrix() {
@@ -73,6 +86,17 @@ public class CelluarMatrix {
                     element.Step(this);
                 }
             }
+        }
+
+        bool Starving = resources.Human > resources.Food;
+        if (doPeopleEat) {
+            DeductResources(new Resources(0, resources.Human, 0));
+        }
+        if (Starving) {
+            DeductResources(new Resources(0, 0, (int) Mathf.Max(resources.Human * StarvePercent, 1)));
+        }
+        if (resources.Human == 0) {
+            Alive = false;
         }
 
         Cycle += 1;
@@ -210,12 +234,16 @@ public class Sim : Singleton<Sim> {
     public CelluarMatrix celluarMatrix;
     public ElementLibrary elementLibrary;
 
+    public Resources PreviousResources;
     public Resources Resources => celluarMatrix.resources;
+    public bool Alive => celluarMatrix.Alive;
     public int Cycle => celluarMatrix.Cycle;
 
 
     [Header("Steppables")]
     public CardUnlocker cardUnlocker;
+    public CycleSummaryDisplay cycleSummary;
+    public DeathScreen deathScreen;
     public Transform CardHolder;
 
     [HideInInspector] public int CardsPlayedThisTurn;
@@ -225,6 +253,7 @@ public class Sim : Singleton<Sim> {
     [SerializeField] private Camera ViewCamera;
     [SerializeField] private RectTransform simBounds;
     [SerializeField] private Resources startingResources;
+    [SerializeField] private bool doPeopleEat = true;
 
     public delegate void OnSpawnHandler(); public event OnSpawnHandler OnSpawn = delegate{};
 
@@ -235,6 +264,9 @@ public class Sim : Singleton<Sim> {
 
     private void Start() {
         celluarMatrix = new CelluarMatrix((int) Size.x, (int) Size.y, this, startingResources, elementLibrary);
+        celluarMatrix.SetCheats(doPeopleEat);
+
+        cycleSummary.OnFinished += cardUnlocker.Step;
     }
 
     /*
@@ -273,11 +305,15 @@ public class Sim : Singleton<Sim> {
     */
     
     public void Step() {
+        PreviousResources = celluarMatrix.resources.Copy();
+
         celluarMatrix.StepAll();
         foreach (Card card in CardHolder.GetComponentsInChildren<Card>()) {
             card.Step();
         }
-        cardUnlocker.Step();
+        cycleSummary.Step();
+        deathScreen.Step();
+        //cardUnlocker.Step();
 
         CardsPlayedThisTurn = 0;
         OnSpawn();

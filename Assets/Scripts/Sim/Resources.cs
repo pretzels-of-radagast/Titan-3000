@@ -34,4 +34,8 @@ public class Resources
         return Oxygen + Food + Human + Metal;
     }
 
+    public Resources Copy() {
+        return new Resources(Oxygen, Food, Human, Metal);
+    }
+
 }

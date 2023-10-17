@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CardUnlocker : MonoBehaviour
@@ -17,6 +18,8 @@ public class CardUnlocker : MonoBehaviour
     public AnimationCurve MoveCurve;
 
     public Vector3 CardPosition;
+    public TextMeshProUGUI TitleCardText;
+
 
     [Header("SFX")]
     public AudioClip ResearchSFX;
@@ -27,32 +30,34 @@ public class CardUnlocker : MonoBehaviour
 
 
     public void Step() {
-        try{
-                ElementUnlock currentUnlock = elementUnlocks[unlockIndex];
-                
-                if (unlockIndex < elementUnlocks.Length && Sim.instance.Resources.Oxygen >= currentUnlock.OxygenThreshold) {
-                    StartUnlockCoroutine();
-                    AddPosterCard(currentUnlock.elementType);
-                    SFXSystem.instance.PlayVariatedSFX(ResearchSFX);
+        bool finishedAllUnlocks = unlockIndex >= elementUnlocks.Length;
+        if (finishedAllUnlocks) { return; }
 
-                    Sim.instance.celluarMatrix.AddCard(currentUnlock.elementType);
-                    unlockIndex += 1;
+        ElementUnlock currentUnlock = elementUnlocks[unlockIndex];
+        
+        if (unlockIndex < elementUnlocks.Length && Sim.instance.Resources.Oxygen >= currentUnlock.OxygenThreshold) {
+            StartUnlockCoroutine();
+            SetPosterCard(currentUnlock.elementType);
+            TitleCardText.text = $"The {PosterCard.GetComponent<Card>().element.Name}";
+            // SetTitleCardText();
 
-                    if (Sim.instance.Resources.Oxygen >= 5) {
-                        Debug.Log("next");
-                        MusicSystem.instance.PlayNextClip();
-                    } else if (Sim.instance.Resources.Oxygen >= 75) {
-                        MusicSystem.instance.PlayNextClip();
-                    }
-                }
-            }catch (Exception e){
-                
+            SFXSystem.instance.PlayVariatedSFX(ResearchSFX);
+
+            Sim.instance.celluarMatrix.AddCard(currentUnlock.elementType);
+            unlockIndex += 1;
+
+            if (Sim.instance.Resources.Oxygen >= 5) {
+                Debug.Log("next");
+                MusicSystem.instance.PlayNextClip();
+            } else if (Sim.instance.Resources.Oxygen >= 75) {
+                MusicSystem.instance.PlayNextClip();
             }
+        }
 
     }
     
 
-    private void AddPosterCard(ElementType elementType) {
+    private void SetPosterCard(ElementType elementType) {
         // destroy the previous card
         if (PosterCard != null) { Destroy(PosterCard); }
 
@@ -68,6 +73,10 @@ public class CardUnlocker : MonoBehaviour
 
         // set it's appropriate location relative to this transform
         PosterCard.transform.localPosition = CardPosition;
+    }
+
+    private void SetTitleCardText() {
+        TitleCardText.text = $"The {PosterCard.GetComponent<Card>().element.Name}";
     }
 
     [ContextMenu("test unlock menu")]

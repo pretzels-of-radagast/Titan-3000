@@ -5,7 +5,8 @@ using UnityEngine;
 public enum CardBehaviour {
     Permanent,
     OneUse,
-    Discards
+    Discards,
+    Recharge
 }
 
 public abstract class Element {
@@ -136,7 +137,10 @@ public abstract class Element {
     }
 
     public virtual void Delete() {
-        matrix.DeductResources(DestructionCost);
+        if (!isFirstTurn) {
+            matrix.DeductResources(DestructionCost);
+        }
+        
         OnDelete();
     }
 

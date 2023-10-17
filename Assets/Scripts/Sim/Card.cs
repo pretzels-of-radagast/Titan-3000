@@ -5,28 +5,33 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Card : SelectableItem {
+    
+    // cache
+    private bool playedThisTurn = false;
 
-    public override bool IsLegibleCost() { return element.Cost.IsLess(Sim.instance.celluarMatrix.resources) && Sim.instance.CanPlay; }
+    public override bool IsLegibleCost() { return (element.cardBehaviour != CardBehaviour.Recharge || !playedThisTurn) && 
+        element.Cost.IsLess(Sim.instance.celluarMatrix.resources) && Sim.instance.CanPlay; }
     public override bool IsLegiblePlacement(Vector3 screenPoint) { return IsValidSetLocation(screenPoint); }
 
     public override void Spawn(Vector3 screenSpacePoint) {
         Debug.Log("spawn");
+        playedThisTurn = true;
         Sim.instance.SpawnElement(ElementType, screenSpacePoint);
 
-        if (element.cardBehaviour == CardBehaviour.OneUse) {
+        if (element.cardBehaviour == CardBehaviour.OneUse || element.cardBehaviour == CardBehaviour.Discards) {
             HandHolder.instance.RemoveCard(this);
         }
     }
 
     public virtual void Step() {
+        playedThisTurn = false;
         NewElementInstance();
         if (element.cardBehaviour == CardBehaviour.Discards) {
             HandHolder.instance.RemoveCard(this);
         }
     }
 
-
-    protected virtual void Start() { NewElementInstance(); }
+    public virtual void Start() { NewElementInstance(); }
 
     protected virtual void NewElementInstance() { if (element == null) {element = Sim.instance.elementLibrary.NewElementInstance(0, 0, ElementType, null, false, false);} }
 

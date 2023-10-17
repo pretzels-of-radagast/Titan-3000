@@ -25,6 +25,8 @@ public class UIPanel : MonoBehaviour{
     [SerializeField] private Sprite oxygen;
     [SerializeField] private Sprite food;
     [SerializeField] private Sprite human;
+    [SerializeField] private Sprite metal;
+    [SerializeField] private Sprite emptySprite;
 
     private void Update(){
         Element element = LocateHoveredElement();
@@ -64,23 +66,41 @@ public class UIPanel : MonoBehaviour{
             return "Discards This Turn.";
         } else if(behaviour == CardBehaviour.OneUse){
             return "One-Time Use.";
-        } else{
+        } else if(behaviour == CardBehaviour.Recharge){
+            return "Requires Replenishing.";
+        }else{
             return "";
         }
     }
 
     private void SetImageNumber(Resources resources, Image image, TextMeshProUGUI text) {
-        float max = Mathf.Max(resources.Oxygen, resources.Food, resources.Human);
+        float max = Mathf.Max(resources.Oxygen, resources.Food, resources.Human, resources.Metal);
 
-        if (max == resources.Oxygen) {
+        if (max == 0) {
+            image.sprite = emptySprite;
+        } else if (max == resources.Oxygen) {
             image.sprite = oxygen;
         } else if (max == resources.Food) {
             image.sprite = food;
         } else if (max == resources.Human) {
             image.sprite = human;
+        } else if (max == resources.Metal) {
+            image.sprite = metal;
         }
 
-        text.text = $"{(int) max}";
+
+        if (max == 0) {
+            text.text = $"";
+        } else if (max == resources.Oxygen) {
+            text.text = $"{max}%";
+        } else if (max == resources.Food) {
+            text.text = $"{max} units";
+        } else if (max == resources.Human) {
+            text.text = $"{max} people";
+        } else if (max == resources.Metal) {
+            text.text = $"{max} units";
+        }
+        
     }
 
 }

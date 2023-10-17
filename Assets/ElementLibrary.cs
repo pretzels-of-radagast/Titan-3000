@@ -289,6 +289,7 @@ public class ElementLibrary : Singleton<ElementLibrary> {
 
         GameObject baseObject = ElementDictionary[elementType].card.gameObject;
         Card card = Instantiate(baseObject, HandHolder.instance.transform).GetComponent<Card>();
+        card.Start();
         if (addFlag ) {
             HandHolder.instance.AddCard(card);
         }

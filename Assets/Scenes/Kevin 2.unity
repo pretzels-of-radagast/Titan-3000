@@ -375,8 +375,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: " -> YOU HAVE FAILED THE OBJECTIVE.\r\n\n -> YOUR COLONY WILL BE ABONDONED.\r\n
-    -> YOUR CERTIFICATION WILL BE REMOVED.\r\n -> ANOTHER SHALL TAKE YOUR PLACE."
+  m_text: " -> YOU HAVE FAILED THE OBJECTIVE.\r\n\n -> YOUR COLONY WILL BE ABONDONED.\r\n->
+    YOUR CERTIFICATION WILL BE REMOVED.\r\n -> ANOTHER SHALL TAKE YOUR PLACE."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1044,7 +1044,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   elementUnlocks:
-  - OxygenThreshold: 0.5
+  - OxygenThreshold: 3
     elementType: 1
   - OxygenThreshold: 15
     elementType: 19
@@ -1689,108 +1689,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 247147999}
   m_CullTransparentMesh: 1
---- !u!1001 &287751678
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1071782219}
-    m_Modifications:
-    - target: {fileID: 5867013950901646098, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-      propertyPath: m_Name
-      value: WabubbyCard
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867013950901646099, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867013950901646099, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867013950901646099, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867013950901646099, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867013950901646099, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867013950901646099, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867013950901646099, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867013950901646099, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867013950901646099, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867013950901646099, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867013950901646099, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867013950901646099, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867013950901646099, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867013950901646099, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867013950901646099, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867013950901646099, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867013950901646099, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 32
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867013950901646099, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867013950901646099, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867013950901646099, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5867013950901646099, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
---- !u!224 &287751679 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5867013950901646099, guid: f0d5179507ef80445be3ffab14c16e64, type: 3}
-  m_PrefabInstance: {fileID: 287751678}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &310956968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1853,8 +1751,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Wabubby (Kevin) - programming, pixel art
 
-    Tomato King (Jonathan)
-    - programming
+    Tomato King (Jonathan) -
+    programming
 
     Demonic Face - music composition
 
@@ -5749,7 +5647,6 @@ RectTransform:
   m_Children:
   - {fileID: 446961519}
   - {fileID: 2011902819}
-  - {fileID: 287751679}
   m_Father: {fileID: 1250782747}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8212,7 +8109,7 @@ MonoBehaviour:
   simBounds: {fileID: 1441682252}
   startingResources:
     Oxygen: 0
-    Food: 5
+    Food: 10
     Human: 1
     Metal: 0
   doPeopleEat: 1
@@ -9576,6 +9473,15 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
+    - serializedVersion: 3
+      time: 0.53697413
+      value: 0.5553601
+      inSlope: 1.4917973
+      outSlope: 1.4917973
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 1
@@ -12202,7 +12108,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1960669737
 RectTransform:
   m_ObjectHideFlags: 0

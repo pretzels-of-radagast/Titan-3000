@@ -25,7 +25,7 @@ public class CelluarMatrix {
     Cheats
     */
     private bool doPeopleEat;
-    private float StarvePercent;
+    private float StarvePercent = 0.6f;
 
 
     /*

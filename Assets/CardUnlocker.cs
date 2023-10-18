@@ -37,9 +37,12 @@ public class CardUnlocker : MonoBehaviour
     // cache
     private int unlockIndex;
     private GameObject PosterCard;
+    private float PreviousOxygen;
 
 
     public void Step() {
+        PreviousOxygen = Sim.instance.Resources.Oxygen;
+
         bool finishedAllUnlocks = unlockIndex >= elementUnlocks.Length;
         if (finishedAllUnlocks) { return; }
 
@@ -56,10 +59,10 @@ public class CardUnlocker : MonoBehaviour
             Sim.instance.celluarMatrix.AddCard(currentUnlock.elementType);
             unlockIndex += 1;
 
-            if (Sim.instance.Resources.Oxygen >= 15) {
+            if (PreviousOxygen < 15 && Sim.instance.Resources.Oxygen >= 15) {
                 MusicSystem.instance.PlayNextClip();
                 SetBackground(FifteenPercent);
-            } else if (Sim.instance.Resources.Oxygen >= 75) {
+            } else if (PreviousOxygen < 75 && Sim.instance.Resources.Oxygen >= 75) {
                 MusicSystem.instance.PlayNextClip();
                 SetBackground(SeventyPerent);
             }
